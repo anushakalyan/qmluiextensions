@@ -60,8 +60,8 @@
 # include <X11/Xlib.h>
 # if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #  include <QtQuick/qquickitem.h>
-#  include "../compat/mwindowstate.h"
-#  include "../compat/mdeclarativescreen.h"
+#  include "../compat/meego/mwindowstate.h"
+#  include "../compat/meego/mdeclarativescreen.h"
 # else
 #  include "mwindowstate.h"
 #  include "mdeclarativescreen.h"
@@ -872,8 +872,11 @@ MDeclarativeScreen::Density MDeclarativeScreen::density() const {
     else
         return ExtraHigh;
 }
-
+# if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 void MDeclarativeScreen::updatePlatformStatusBarRect(QDeclarativeItem * statusBar)
+#else
+void MDeclarativeScreen::updatePlatformStatusBarRect(QQuickItem * statusBar)
+#endif
 {
     Q_UNUSED(statusBar);
 
