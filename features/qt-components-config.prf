@@ -1,0 +1,1 @@
+CONFIG += meego demos examples extras tests themedaemonprotocolv1 xdamage xrandr

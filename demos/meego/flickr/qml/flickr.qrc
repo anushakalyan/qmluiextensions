@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>DetailsPage.qml</file>
+        <file>DetailText.qml</file>
+        <file>flickr.qml</file>
+        <file>FlickrPage.qml</file>
+        <file>GridDelegate.qml</file>
+        <file>LargeImagePage.qml</file>
+        <file>ListDelegate.qml</file>
+        <file>PhotoFeedModel.qml</file>
+        <file>SearchBar.qml</file>
+        <file>Splash.qml</file>
+        <file>Thumbnail.qml</file>
+        <file>ThumbnailPage.qml</file>
+        <file>UIConstants.js</file>
+        <file>images/stripes.png</file>
+        <file>images/splash.png</file>
+        <file>images/tb_back.svg</file>
+        <file>images/tb_info.svg</file>
+        <file>images/tb_reload.svg</file>
+        <file>images/tb_search.svg</file>
+    </qresource>
+</RCC>
