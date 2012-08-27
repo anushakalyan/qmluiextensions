@@ -45,9 +45,9 @@
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <QApplication>
-#include <QDeclarativeContext>
 #include <QDeclarativeView>
 #include <QDeclarativeEngine>
+#include <QDeclarativeContext>
 #include <QDebug>
 #include <qmath.h>
 #include <QLineEdit>

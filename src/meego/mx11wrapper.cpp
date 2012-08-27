@@ -40,6 +40,7 @@
 
 # include <QtCore>
 # include <QImage>
+#include <QWidget>
 # if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 # include <QtGui/qpa/qplatformnativeinterface.h>
 # include <QGuiApplication>
@@ -47,8 +48,6 @@
 # include <QX11Info>
 # endif
 #include "mx11wrapper.h"
-
-#ifdef HAVE_XLIB
 
 Atom MX11Wrapper::XInternAtom(Display *display, const char *atom_name, Bool only_if_exists)
 {
@@ -112,6 +111,53 @@ Display* MX11Wrapper::x11Display(QWindow *window)
      return lastKnownDisplay;
  }
 
+int MX11Wrapper::physicalHeight()
+{
+    int pHeight = 0;
+#if defined(HAVE_XRANDR)
+    XRRScreenResources *sr;
+    sr = XRRGetScreenResources(MX11Wrapper::x11Display(), RootWindow(MX11Wrapper::x11Display(),0));
+    if (sr->noutput) {
+        XRROutputInfo *output = XRRGetOutputInfo(MX11Wrapper::x11Display(),sr,sr->outputs[0]);
+        if (output->crtc) {
+            pHeight = output->mm_height;
+        }
+        XRRFreeOutputInfo(output);
+    }
+    XRRFreeScreenResources(sr);
+#endif
+    return pHeight;
+}
+
+Window MX11Wrapper::effectiveWinId(Window winIdFromEvent)
+{
+    QWidget * window = QWidget::find(winIdFromEvent);
+    if (window) {
+        return window->effectiveWinId();
+    } else {
+        return 0;
+    }
+}
+
+void MX11Wrapper::appendEventMask(Window win)
+{
+    XWindowAttributes existingAttributes;
+    XSetWindowAttributes newAttributes;
+    Status status;
+
+    status = MX11Wrapper::XGetWindowAttributes(x11Display(), win, &existingAttributes);
+    if (status == 0) {
+        qFatal("MWindow: XGetWindowAttributes() failed!");
+    }
+
+    newAttributes.event_mask = existingAttributes.your_event_mask |
+                               VisibilityChangeMask |
+                               PropertyChangeMask |
+                               FocusChangeMask;
+
+    MX11Wrapper::XChangeWindowAttributes(x11Display(), win, CWEventMask, &newAttributes);
+}
+
 QImage MX11Wrapper::qimageFromXImage(XImage* xi)
 {
     QImage::Format format = QImage::Format_ARGB32_Premultiplied;
@@ -158,4 +204,3 @@ QImage MX11Wrapper::qimageFromXImage(XImage* xi)
 
     return image;
 }
-#endif // Q_WS_X11

@@ -6,7 +6,7 @@ SOURCES += \
     ../../../../src/meego/mwindowstate.cpp
 
 HEADERS += \
-    ../../../../src/meego/mwindowstate.h \
+    ../../../../src/meego/mwindowstate_bridge.h \
     ../../../../src/meego/mwindowstate_p.h
 
 INCLUDEPATH += ../../../../src/meego/

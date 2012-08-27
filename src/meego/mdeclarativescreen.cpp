@@ -43,9 +43,6 @@
 #include <QDeclarativeItem>
 #include <QWindowStateChangeEvent>
 #include <QDesktopWidget>
-
-#include "mdeclarativeinputcontext.h"
-#include "mx11wrapper.h"
 #include <math.h>
 
 #ifdef HAVE_CONTEXTSUBSCRIBER
@@ -54,19 +51,18 @@
 # include "mservicelistener.h"
 #endif
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
   // These includes conflict with some of Qt's types, so should be kept last
 # include <X11/Xatom.h>
 # include <X11/Xlib.h>
+#include "mx11wrapper.h"
+#endif
 # if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #  include <QtQuick/qquickitem.h>
-#  include "../compat/meego/mwindowstate.h"
-#  include "../compat/meego/mdeclarativescreen.h"
-# else
-#  include "mwindowstate.h"
-#  include "mdeclarativescreen.h"
 # endif
-#endif
+# include "mwindowstate_bridge.h"
+# include "mdeclarativescreen_bridge.h"
+#include "mdeclarativeinputcontext_bridge.h"
 #if defined(Q_WS_X11)
 #  include <QX11Info>
 #endif
@@ -94,7 +90,6 @@ class MDeclarativeScreenPrivate
 public:
     MDeclarativeScreenPrivate(MDeclarativeScreen *qq);
     ~MDeclarativeScreenPrivate();
-
     void updateX11OrientationAngleProperty();
     void initContextSubscriber();
 
@@ -139,8 +134,7 @@ public:
     QString topEdgeValue() const;
 
     MDeclarativeScreen::Orientations physicalDisplayOrientation() const { return _physicalDisplayOrientation; }
-
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     WId windowId;
 #endif
 
@@ -174,7 +168,7 @@ MDeclarativeScreen* MDeclarativeScreen::instance()
     return self;
 }
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
 // This writes the orientation angle of into the X11 window property,
 // which makes OS dialogs coming on top follow the app orientation
 static void writeX11OrientationAngleProperty(WId id, int angle)
@@ -193,7 +187,7 @@ static void writeX11OrientationAngleProperty(WId id, int angle)
 
 bool x11EventFilter(void *message, long *result)
 {
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     XEvent *event = (XEvent *)message;
 
     Q_UNUSED(result);
@@ -232,7 +226,7 @@ MDeclarativeScreenPrivate::MDeclarativeScreenPrivate(MDeclarativeScreen *qq)
     , oldEventFilter(0)
 #endif
     , allowSwipe(true)
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     , windowId(0)
 #endif
 #ifdef HAVE_CONTEXTSUBSCRIBER
@@ -314,7 +308,6 @@ void MDeclarativeScreenPrivate::initContextSubscriber()
     _q_isCoveredChanged();
     updateX11OrientationAngleProperty();
     _q_updateIsTvConnected();
-
     QObject::connect(MWindowState::instance(), SIGNAL(animatingChanged()),
                      q, SLOT(_q_windowAnimationChanged()));
 }
@@ -334,7 +327,7 @@ void MDeclarativeScreenPrivate::updateScreenSize() {
 
 void MDeclarativeScreenPrivate::updateX11OrientationAngleProperty()
 {
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     if (!windowId)
         return;
 
@@ -386,7 +379,7 @@ void MDeclarativeScreenPrivate::_q_updateIsTvConnected()
 qreal MDeclarativeScreenPrivate::dpi() const
 {
     static qreal dpi = 0;
-#if defined(HAVE_XLIB) && defined(HAVE_XRANDR)
+#if (defined(HAVE_XLIB) || defined (Q_WS_X11)) && defined(HAVE_XRANDR)
     if (!dpi) {
         int physicalHeight = 0;
         XRRScreenResources *sr;
@@ -649,7 +642,6 @@ void MDeclarativeScreen::setOrientation(Orientation o)
 {
     d->finalOrientation = o;
     MDeclarativeScreen::Direction oldDirection = d->rotationDirection;
-
     if (d->orientation == o || MWindowState::instance()->animating())
         return;
 
@@ -679,6 +671,7 @@ void MDeclarativeScreen::setOrientation(Orientation o)
     }
 #endif
     d->orientation = newOrientation;
+
     d->updateX11OrientationAngleProperty();
 
     d->updateScreenSize();
@@ -837,18 +830,18 @@ int MDeclarativeScreen::displayHeight() const
     return d->displaySize.height();
 }
 
-MWindowState * MDeclarativeScreen::windowState() const
+/*MWindowState * MDeclarativeScreen::windowState() const
 {
     qWarning() << "Warning: screen.windowState() is deprecated, use platformWindow property instead";
     return MWindowState::instance();
-}
+}*/
 
 int MDeclarativeScreen::dpi() const {
     return d->dpi();
 }
 
 MDeclarativeScreen::DisplayCategory MDeclarativeScreen::displayCategory() const {
-    /*const int w = QApplication::desktop()->screenGeometry().width();
+    const int w = QApplication::desktop()->screenGeometry().width();
     const int h = QApplication::desktop()->screenGeometry().height();
     const qreal diagonal = sqrt(static_cast<qreal>(w * w + h * h)) / dpi();
     if (diagonal < CATEGORY_SMALL_LIMIT)
@@ -858,8 +851,7 @@ MDeclarativeScreen::DisplayCategory MDeclarativeScreen::displayCategory() const 
     else if (diagonal < CATEGORY_LARGE_LIMIT)
         return Large;
     else
-        return ExtraLarge;*/
-return Normal;
+        return ExtraLarge;
 }
 
 MDeclarativeScreen::Density MDeclarativeScreen::density() const {
@@ -880,7 +872,7 @@ void MDeclarativeScreen::updatePlatformStatusBarRect(QQuickItem * statusBar)
 {
     Q_UNUSED(statusBar);
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QWidget * activeWindow = QApplication::activeWindow();
     if(!activeWindow) {
@@ -945,7 +937,7 @@ bool MDeclarativeScreen::isDisplayLandscape() const {
 void MDeclarativeScreen::setAllowSwipe(bool enabled)
 {
     if (enabled != d->allowSwipe) {
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
         QWidget * activeWindow = QApplication::activeWindow();
         if(!activeWindow) {
             return;
@@ -977,7 +969,7 @@ void MDeclarativeScreen::setAllowSwipe(bool enabled)
     }
 }
 
-#if defined(HAVE_XLIB)
+#if defined HAVE_XLIB || defined Q_WS_X11
 Display* MDeclarativeScreen::display(QDeclarativeItem* item) const
 {
     QWindow* window = NULL;

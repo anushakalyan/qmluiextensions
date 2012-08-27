@@ -143,7 +143,7 @@ public:
 
     bool nativeEventFilter(const QByteArray &eventType, void *message, long *result);
 
-    Q_INVOKABLE void updatePlatformStatusBarRect(QDeclarativeItem * statusBar);
+    Q_INVOKABLE void updatePlatformStatusBarRect(QQuickItem * statusBar);
 
     Orientation currentOrientation() const;
 

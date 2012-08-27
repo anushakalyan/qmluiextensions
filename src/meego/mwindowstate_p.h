@@ -41,7 +41,7 @@
 #ifndef MWINDOWSTATE_P_H
 #define MWINDOWSTATE_P_H
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
 #include "mx11wrapper.h"
 #endif
 
@@ -54,7 +54,7 @@ public:
     MWindowStatePrivate();
     virtual ~MWindowStatePrivate();
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     void initVisibilityWatcher();
     void initVisibleChangedTimer();
     void handleXVisibilityEvent(XVisibilityEvent *xevent);

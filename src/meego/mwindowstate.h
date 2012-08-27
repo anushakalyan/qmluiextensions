@@ -49,7 +49,7 @@
 #include <maliit/inputmethod.h>
 #endif
 
-#if defined(HAVE_XLIB)
+#if defined HAVE_XLIB || defined Q_WS_X11
 typedef struct _XDisplay Display;
 #endif
 
@@ -147,7 +147,7 @@ private:
     Q_DECLARE_PRIVATE(MWindowState)
     Q_DISABLE_COPY(MWindowState)
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
 private Q_SLOTS:
     void _q_doVisibleChangedNotVisible();
 #endif // Q_WS_X11

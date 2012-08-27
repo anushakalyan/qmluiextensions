@@ -48,6 +48,13 @@
 #include <QDebug>
 #include <QLibraryInfo>
 
+// Compatibility for Qt5
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
+#define tst_SKIP(a, b) QSKIP(a, b)
+#else
+#define tst_SKIP(a, b) QSKIP(a)
+#endif
+
 enum FindSubdirsMode {
     Flat = 0,
     Recursive
@@ -178,7 +185,7 @@ void tst_MakeTestSelfTest::naming_convention()
         }
 
         if (cppfiles.isEmpty()) {
-            QSKIP("Couldn't locate source files for test", SkipSingle);
+            tst_SKIP("Couldn't locate source files for test", SkipSingle);
         }
     }
 
@@ -188,7 +195,7 @@ void tst_MakeTestSelfTest::naming_convention()
     }
 
     if (possible_test_classes.isEmpty()) {
-        QSKIP(qPrintable(QString("Couldn't locate test class in %1").arg(format_list(cppfiles))), SkipSingle);
+        tst_SKIP(qPrintable(QString("Couldn't locate test class in %1").arg(format_list(cppfiles))), SkipSingle);
     }
 
     QVERIFY2(possible_test_classes.contains(target), qPrintable(QString(

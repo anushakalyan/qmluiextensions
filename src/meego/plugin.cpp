@@ -40,17 +40,22 @@
 
 #include <QFont>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include "../compat/mwindowstate.h"
-#include "../compat/mdeclarativestatusbar.h"
-#include "../compat/mdeclarativescreen.h"
-#include "../compat/msnapshot.h"
+#include <QtWidgets/QApplication>
+#include <QtQml>
+#include <QQmlPropertyMap>
 #else
-#include "mwindowstate.h"
-#include "mdeclarativestatusbar.h"
-#include "mdeclarativescreen.h"
-#include "msnapshot.h"
+#include <QApplication>
+#include <QtDeclarative>
+#include <QDeclarativePropertyMap>
+#include "mdeclarativeview.h"
+#include "shadereffectitem/shadereffectitem.h"
+#include "shadereffectitem/shadereffectsource.h"
 #endif
-#include "mdeclarativeinputcontext.h"
+#include "mwindowstate_bridge.h"
+#include "mdeclarativestatusbar_bridge.h"
+#include "mdeclarativescreen_bridge.h"
+#include "mdeclarativeinputcontext_bridge.h"
+#include "msnapshot_bridge.h"
 #include "mpagestatus.h"
 #include "mdialogstatus.h"
 #include "mpageorientation.h"
@@ -65,25 +70,7 @@
 #include "mdeclarativeimattributeextension.h"
 #include "mdeclarativeimobserver.h"
 #include "mtoolbarvisibility.h"
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QApplication>
-#include <QtQml>
-#include <QQmlPropertyMap>
-#else
-#include <QApplication>
-#include <QtDeclarative>
-#include <QDeclarativePropertyMap>
-#endif
-
 #include "kernel/common.h"
-
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-   #include "mdeclarativeview.h"
-   #include "shadereffectitem/shadereffectitem.h"
-   #include "shadereffectitem/shadereffectsource.h"
-#endif
-
 #include "i18n/mlocalewrapper.h"
 
 class MeegoPlugin : public QDeclarativeExtensionPlugin
@@ -111,8 +98,13 @@ public:
             engine->rootContext()->setContextProperty("screen", MDeclarativeScreen::instance());
             qmlRegisterUncreatableType<MDeclarativeScreen>(uri, SINCE_VERSION(1, 0), "Screen", "");
 
+#if defined USE_ABSTRACTION
+        engine->rootContext()->setContextProperty("platformWindow", QmlWindowState::instance());
+        qmlRegisterUncreatableType<QmlWindowState>(uri, SINCE_VERSION(1, 0), "WindowState", "");
+#else
             engine->rootContext()->setContextProperty("platformWindow", MWindowState::instance());
             qmlRegisterUncreatableType<MWindowState>(uri, SINCE_VERSION(1, 0), "WindowState", "");
+#endif
 
             engine->rootContext()->setContextProperty("theme", new MThemePlugin);
             qmlRegisterUncreatableType<MThemePlugin>(uri, SINCE_VERSION(1, 0), "Theme", "");
@@ -149,7 +141,11 @@ public:
 
         qmlRegisterUncreatableType<MPageStatus>(uri, SINCE_VERSION(1, 0), "PageStatus", "");
         qmlRegisterUncreatableType<MDialogStatus>(uri, SINCE_VERSION(1, 0), "DialogStatus", "");
+#if defined USE_ABSTRACTION
+        qmlRegisterUncreatableType<QmlWindowState>(uri, SINCE_VERSION(1, 0), "WindowState","");
+#else
         qmlRegisterUncreatableType<MWindowState>(uri, SINCE_VERSION(1, 0), "WindowState","");
+#endif
         qmlRegisterUncreatableType<MPageOrientation>(uri, SINCE_VERSION(1, 0), "PageOrientation", "");
         qmlRegisterUncreatableType<MToolBarVisibility>(uri, SINCE_VERSION(1, 0), "ToolBarVisibility", "");
         qmlRegisterUncreatableType<MTextTranslator>(uri, SINCE_VERSION(1, 0), "TextTranslator", "");

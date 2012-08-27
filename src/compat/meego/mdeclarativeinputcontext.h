@@ -43,7 +43,7 @@
 
 #include <QEvent>
 #include <QObject>
-#include "mdeclarativescreen.h"
+#include "mdeclarativescreen_bridge.h"
 
 class MDeclarativeInputContextPrivate;
 class QQmlComponent;

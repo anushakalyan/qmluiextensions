@@ -43,7 +43,8 @@
 #include <QWidget>
 #include <QtTest/QtTest>
 #include <QSignalSpy>
-#include "mwindowstate.h"
+#include "mwindowstate_bridge.h"
+#include "mx11wrapper.h"
 #include "mwindowstate_p.h"
 
 #define ATOM_SWITCHER 1
@@ -51,7 +52,7 @@
 
 bool visibleInSwitcherProperty = true;
 
-#ifdef Q_WS_X11
+#if defined HAVE_XLIB || defined Q_WS_X11
 
 Atom MX11Wrapper::XInternAtom(Display *display, const char *atom_name, Bool only_if_exists)
 {
@@ -116,7 +117,7 @@ int MX11Wrapper::XChangeWindowAttributes(Display *display, Window w, unsigned lo
     return ::XChangeWindowAttributes(display, w, valuemask, attributes);
 }
 
-#endif //Q_WS_X11
+#endif //HAVE_XLIB
 
 class tst_MWindowState : public QObject
 {
@@ -133,7 +134,7 @@ public slots:
     void cleanup();
 
 private slots:
-#ifdef Q_WS_X11
+#if defined HAVE_XLIB || defined Q_WS_X11
     void testVisibilityUnobscured();
     void testVisibilityFullyObscured();
     void testVisibilityPartiallyObscured();
@@ -147,10 +148,10 @@ private slots:
     void testFullsizeVisibleToThumbnailHidden();
     void testThumbnailHiddenToFullsizeVisible();
     void testWindowActive();
-#endif //Q_WS_X11
+#endif //HAVE_XLIB
 
 private:
-#ifdef Q_WS_X11
+#if defined HAVE_XLIB || defined Q_WS_X11
     void setListenedWindowId();
     void sendVisibilityEvent(int state);
     void sendPropertyEvent(Atom atom);
@@ -160,16 +161,16 @@ private:
     // Otherwise X would say "Bad window"
     QWidget win;
     Window winId;
-#endif //Q_WS_X11
+#endif //HAVE_XLIB
     MWindowState * testObject;
 };
 
 tst_MWindowState::tst_MWindowState() :
         testObject(0)
 {
-#ifdef Q_WS_X11
+#if defined HAVE_XLIB || defined Q_WS_X11
     winId = win.winId();
-#endif //Q_WS_X11
+#endif //HAVE_XLIB
 }
 
 tst_MWindowState::~tst_MWindowState()
@@ -186,20 +187,20 @@ void tst_MWindowState::cleanupTestCase()
 
 void tst_MWindowState::init()
 {
-#ifdef Q_WS_X11
+#if defined HAVE_XLIB || defined Q_WS_X11
     testObject = MWindowState::instance();
     setListenedWindowId();
-#endif //Q_WS_X11
+#endif //HAVE_XLIB
 }
 
 void tst_MWindowState::cleanup()
 {
-#ifdef Q_WS_X11
+#if defined HAVE_XLIB || defined Q_WS_X11
     delete testObject;
-#endif //Q_WS_X11
+#endif //HAVE_XLIB
 }
 
-#ifdef Q_WS_X11
+#if defined HAVE_XLIB || defined Q_WS_X11
 
 void tst_MWindowState::sleepAndProcessEvents()
 {
@@ -489,7 +490,7 @@ void tst_MWindowState::testWindowActive()
     QCOMPARE(testObject->active(), true);
     QCOMPARE(activeSpy.count(), 3);
 }
-#endif //Q_WS_X11
+#endif //HAVE_XLIB
 
 QTEST_MAIN(tst_MWindowState)
 #include "tst_mwindowstate.moc"

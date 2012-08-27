@@ -49,9 +49,9 @@
 
 class QDeclarativeItem;
 class MDeclarativeScreenPrivate;
-class MWindowState;
+//class MWindowState;
 
-#if defined(HAVE_XLIB)
+#if defined Q_WS_X11
 typedef struct _XDisplay Display;
 #endif
 
@@ -124,7 +124,7 @@ public:
     Q_PROPERTY(bool allowSwipe READ allowSwipe WRITE setAllowSwipe NOTIFY allowSwipeChanged FINAL )
     Q_PROPERTY(bool isPortrait READ isPortrait NOTIFY currentOrientationChanged FINAL )
 
-    Q_PROPERTY(MWindowState * windowState READ windowState CONSTANT FINAL)
+    //Q_PROPERTY(MWindowState * windowState READ windowState CONSTANT FINAL)
 
     Q_PROPERTY(qreal dpi READ dpi NOTIFY displayChanged FINAL)
     Q_PROPERTY(DisplayCategory displayCategory READ displayCategory NOTIFY displayChanged FINAL) // Small, Normal, Large, ExtraLarge
@@ -175,9 +175,9 @@ public:
     DisplayCategory displayCategory() const;
     Density density() const;
 
-    MWindowState * windowState() const;
+   // MWindowState * windowState() const;
 
-#if defined(HAVE_XLIB)
+#if defined Q_WS_X11
     Display* display(QDeclarativeItem* item = 0) const;
 #endif
 

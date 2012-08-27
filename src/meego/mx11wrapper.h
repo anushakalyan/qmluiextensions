@@ -41,11 +41,9 @@
 #ifndef MX11WRAPPER_H
 #define MX11WRAPPER_H
 
-#ifdef HAVE_XLIB
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
-#endif
 
 
 // Namespace that wraps up some X11 calls
@@ -53,8 +51,6 @@ class QImage;
 class QWindow;
 namespace MX11Wrapper
 {
-
-#ifdef HAVE_XLIB
     
     Atom XInternAtom(Display *display, const char *atom_name, Bool only_if_exists);
 
@@ -77,8 +73,10 @@ namespace MX11Wrapper
     int XChangeWindowAttributes(Display *display, Window w, unsigned long valuemask,
                                 XSetWindowAttributes *attributes);
     Display* x11Display(QWindow *window = 0);
+    Window effectiveWinId(Window winIdFromEvent);
+    void appendEventMask(Window win);
     QImage qimageFromXImage(XImage* xi);
- #endif
+    int physicalHeight();
 }
 
 #endif // MX11WRAPPER_H

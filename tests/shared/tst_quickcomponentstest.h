@@ -40,7 +40,6 @@
         } \
         QCOMPARE(__expr, __expected); \
     } while(0)
-
 #endif
 
 namespace tst_quickcomponentstest

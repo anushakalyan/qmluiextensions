@@ -40,13 +40,10 @@
 
 #include <QWidget>
 #include <QApplication>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include "../compat/mwindowstate.h"
-#else
-#include "mwindowstate.h"
-#endif
+#include "mwindowstate_bridge.h"
 #include "mwindowstate_p.h"
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
+#include "mx11wrapper.h"
 #include <X11/Xlib.h>
 #endif // HAVE_XLIB
 
@@ -74,7 +71,7 @@ MWindowState::~MWindowState()
 
 MWindowStatePrivate::~MWindowStatePrivate()
 {
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     if (qApp) {
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     qApp->setEventFilter(origEventFilter);
@@ -86,7 +83,7 @@ MWindowStatePrivate::~MWindowStatePrivate()
 #endif
 }
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
 
 namespace
 {
@@ -434,7 +431,7 @@ MWindowState::MWindowState(QObject *parent) :
     Q_D(MWindowState);
     d->q_ptr = this;
 
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     d->initVisibilityWatcher();
     d->initVisibleChangedTimer();
 #endif // Q_WS_X11

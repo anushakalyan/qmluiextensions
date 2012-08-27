@@ -42,7 +42,7 @@
 #define MDeclarativeStatusBar_H
 
 #include <qdeclarativeitem.h>
-#include "mdeclarativescreen.h"
+#include "mdeclarativescreen_bridge.h"
 #include <qglobal.h>
 
 #include <QtQuick/qsgtexture.h>

@@ -10,7 +10,7 @@ force-local-theme: DEFINES+=FORCE_LOCAL_THEME
 
 win32|mac:!wince*:!win32-msvc:!macx-xcode:CONFIG += debug_and_release build_all
 CONFIG += qt plugin copy_native install_native
-QT += network opengl
+QT += network opengl core
 greaterThan(QT_MAJOR_VERSION, 4) {
    QT += qml quick widgets
    OTHER_FILES += meegoplugin.json
@@ -80,21 +80,16 @@ contains(QT_CONFIG, dbus): DEFINES += HAVE_DBUS
 contains(QT_CONFIG, opengles2): CONFIG += egl
 
 contains(QT_CONFIG, xlib): DEFINES += HAVE_XLIB
-
+DEFINES += HAVE_XLIB
 SOURCES += \
     plugin.cpp \
     mdeclarativestatusbar.cpp \
-    mdeclarativescreen.cpp \
-    msnapshot.cpp \
     minversemousearea.cpp \
-    mdeclarativeinputcontext.cpp \
     mdeclarativeimageprovider.cpp \
     mdeclarativeimplicitsizeitem.cpp \
-    mdeclarativemaskeditem.cpp \
     mscrolldecoratorsizer.cpp \
     mtexttranslator.cpp \
     mthemeplugin.cpp \
-    mwindowstate.cpp \
     mx11wrapper.cpp \
     themedaemon/mabstractthemedaemonclient.cpp \
     themedaemon/mlocalthemedaemonclient.cpp \
@@ -103,29 +98,23 @@ SOURCES += \
     mdeclarativemousefilter.cpp \
     mdeclarativeimattributeextension.cpp \
     mdeclarativeimobserver.cpp \
-    mdeclarativeview.cpp \
-    shadereffectitem/shadereffect.cpp \
-    shadereffectitem/shadereffectitem.cpp \
-    shadereffectitem/shadereffectsource.cpp \
-    shadereffectitem/shadereffectbuffer.cpp \
-    shadereffectitem/scenegraph/qsggeometry.cpp \
     feedbackplayer.cpp
 
 HEADERS += \
-    mdeclarativestatusbar.h \
-    mdeclarativescreen.h \
+    mdeclarativestatusbar_bridge.h \
+    mdeclarativescreen_bridge.h \
     mdialogstatus.h \
-    msnapshot.h \
+    msnapshot_bridge.h \
     mpagestatus.h \
     minversemousearea.h \
-    mdeclarativeinputcontext.h \
+    mdeclarativeinputcontext_bridge.h \
     mdeclarativeimageprovider.h \
     mdeclarativeimplicitsizeitem.h \
-    mdeclarativemaskeditem.h \
     mscrolldecoratorsizer.h \
     mtexttranslator.h \
     mthemeplugin.h \
-    mwindowstate.h \
+    mwindowstate_bridge.h \
+    mx11wrapper.h \
     themedaemon/mabstractthemedaemonclient.h \
     themedaemon/mlocalthemedaemonclient.h \
     themedaemon/mremotethemedaemonclient.h \
@@ -133,16 +122,9 @@ HEADERS += \
     mdeclarativemousefilter.h \
     mdeclarativeimattributeextension.h \
     mdeclarativeimobserver.h \
-    mdeclarativeview.h \
     i18n/mlocalewrapper.h \
     mpageorientation.h \
     mtoolbarvisibility.h \
-    shadereffectitem/glfunctions.h \
-    shadereffectitem/shadereffect.h \
-    shadereffectitem/shadereffectitem.h \
-    shadereffectitem/shadereffectsource.h \
-    shadereffectitem/shadereffectbuffer.h \
-    shadereffectitem/scenegraph/qsggeometry.h \
     feedbackplayer.h
                             
 
@@ -257,37 +239,87 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QML_FILES += \
         MaskedItem.qml \
         Snapshot.qml \
-        ../compat/TextField.qml
+        ../compat/meego/TextField.qml
 
-    SOURCES -= \
-        msnapshot.cpp \
+    SOURCES += \
+        ../compat/meego/mdeclarativeinputcontext.cpp
+
+    HEADERS += \
+        ../compat/meego/mdeclarativestatusbar.h \
+        ../compat/meego/mdeclarativeinputcontext.h
+} else {
+
+    SOURCES += \
+        mdeclarativeinputcontext.cpp \
         mdeclarativemaskeditem.cpp \
         mdeclarativeview.cpp \
+        msnapshot.cpp \
         shadereffectitem/shadereffect.cpp \
         shadereffectitem/shadereffectitem.cpp \
         shadereffectitem/shadereffectsource.cpp \
         shadereffectitem/shadereffectbuffer.cpp \
         shadereffectitem/scenegraph/qsggeometry.cpp
 
-
-    HEADERS -= \
-        msnapshot.h \
-        mwindowstate.h \
+    HEADERS += \
         mdeclarativestatusbar.h \
-        mdeclarativescreen.h \
+        mdeclarativeinputcontext.h \
         mdeclarativemaskeditem.h \
         mdeclarativeview.h \
+        msnapshot.h \
         shadereffectitem/glfunctions.h \
         shadereffectitem/shadereffect.h \
         shadereffectitem/shadereffectitem.h \
         shadereffectitem/shadereffectsource.h \
         shadereffectitem/shadereffectbuffer.h \
         shadereffectitem/scenegraph/qsggeometry.h
+}
+
+!qmlextensions {
+    SOURCES += \
+        mwindowstate.cpp \
+        mdeclarativescreen.cpp
 
     HEADERS += \
-        ../compat/mwindowstate.h \
-        ../compat/mdeclarativestatusbar.h \
-        ../compat/mdeclarativescreen.h
+        mwindowstate_p.h
+
+    greaterThan(QT_MAJOR_VERSION, 4) {
+        # Tweaks sources and headers for Qt5
+        HEADERS += \
+            ../compat/meego/mwindowstate.h \
+            ../compat/meego/mdeclarativescreen.h
+    } else {
+        HEADERS += \
+            mwindowstate.h \
+            mdeclarativescreen.h
+    }
+}
+
+qmlextensions {
+DEFINES += USE_ABSTRACTION
+    HEADERS += \
+    ../experimental/QmlUiExtensions/core/qmlwindowstate.h \
+    ../experimental/QmlUiExtensions/core/qmlwindowstate_p.h \
+    ../experimental/QmlUiExtensions/core/qmlwindoweventhandler.h \
+    ../experimental/QmlUiExtensions/core/qmlscreendisplayproperties.h \
+    ../experimental/QmlUiExtensions/core/qmlscreendisplayconstants.h
+
+    SOURCES += \
+    ../experimental/QmlUiExtensions/core/qmlwindowstate.cpp \
+    ../experimental/QmlUiExtensions/core/qmlwindoweventhandler.cpp \
+    ../experimental/QmlUiExtensions/platform/meego/qmlwindoweventhandler_x11.cpp \
+    ../experimental/QmlUiExtensions/gui/mdeclarativescreen.cpp \
+    ../experimental/QmlUiExtensions/core/qmlscreendisplayproperties.cpp
+    greaterThan(QT_MAJOR_VERSION, 4) {
+        # Tweaks sources and headers for Qt5
+        HEADERS += \
+           ../experimental/QmlUiExtensions/platform/compat/meego/qmlwindoweventhandler_x11.h \
+           ../experimental/QmlUiExtensions/gui/compat/mdeclarativescreen.h
+    } else {
+
+        HEADERS += \
+           ../experimental/QmlUiExtensions/platform/meego/qmlwindoweventhandler_x11.h \
+           ../experimental/QmlUiExtensions/gui/mdeclarativescreen.h
+    }
 }
 
 include(../../qml.pri)

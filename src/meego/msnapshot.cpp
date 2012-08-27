@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-#include "msnapshot.h"
+#include "msnapshot_bridge.h"
 #include <qpainter.h>
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))

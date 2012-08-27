@@ -45,15 +45,11 @@
 #include <QCoreApplication>
 #include <qpainter.h>
 #include <QTimer>
-#if defined(HAVE_XLIB)
- //  #include <qx11info_x11.h>
-#endif
 #include <qgraphicsscene.h>
 #include <qdebug.h>
 #include "feedbackplayer.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-   #include "../compat/mdeclarativestatusbar.h"
    #include <QtQuick/qsgnode.h>
    #include <QtQuick/qsggeometry.h>
    #include <QtQuick/qsgtexturematerial.h>
@@ -61,18 +57,14 @@
    #include <QtQuick/qquickcanvas.h>
    #include <qguiapplication.h>
    #include <QtGui/qpa/qplatformnativeinterface.h>
-   #include "mx11wrapper.h"
-   #include "../compat/mwindowstate.h"
    #if defined(QT_OPENGL_ES_2)
       #include <EGL/egl.h>
       #include <EGL/eglext.h>
       #include <GLES2/gl2ext.h>
    #endif
-#else
-   #include "mdeclarativestatusbar.h"
-   #include "mwindowstate.h"
 #endif
-
+#include "mwindowstate_bridge.h"
+#include "mdeclarativestatusbar_bridge.h"
 #ifdef HAVE_DBUS
    #include <QDBusInterface>
    #include <QDBusServiceWatcher>
@@ -89,8 +81,11 @@
    #endif
 #endif
 
+#if defined HAVE_XLIB || defined Q_WS_X11
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include "mx11wrapper.h"
+#endif
 
 static const int STATUSBAR_HEIGHT = 36;
 
@@ -206,7 +201,11 @@ MDeclarativeStatusBar::MDeclarativeStatusBar(QDeclarativeItem *parent) :
     querySharedPixmapFromProvider();
 
     // XDamage event should come only when application is in foreground
+#if defined USE_ABSTRACTION
+    QmlWindowState * windowState = QmlWindowState::instance();
+#else
     MWindowState * windowState = MWindowState::instance();
+#endif
     connect(windowState, SIGNAL(activeChanged()), this, SLOT(updateXdamageEventSubscription()));
     connect(this, SIGNAL(visibleChanged()), this, SLOT(updateXdamageEventSubscription()));
 
@@ -218,7 +217,11 @@ MDeclarativeStatusBar::MDeclarativeStatusBar(QDeclarativeItem *parent) :
 
 MDeclarativeStatusBar::~MDeclarativeStatusBar()
 {
+#if defined USE_ABSTRACTION
+    QmlWindowState * windowState = QmlWindowState::instance();
+#else
     MWindowState * windowState = MWindowState::instance();
+#endif
     disconnect(windowState, SIGNAL(activeChanged()), this, SLOT(updateXdamageEventSubscription()));
 
     destroyXDamageForSharedPixmap();
@@ -351,7 +354,11 @@ void MDeclarativeStatusBar::paint(QPainter *painter, const QStyleOptionGraphicsI
 
 void MDeclarativeStatusBar::updateXdamageEventSubscription()
 {
+#if defined USE_ABSTRACTION
+    QmlWindowState * windowState = QmlWindowState::instance();
+#else
     MWindowState * windowState = MWindowState::instance();
+#endif
     if(windowState->active() && isVisible()) {
         // Subscribe to xdamage events only if there is a need
         if(pixmapDamage == 0 && !sharedPixmap.isNull())
@@ -387,8 +394,10 @@ void MDeclarativeStatusBar::destroyXDamageForSharedPixmap()
 #ifdef HAVE_XDAMAGE
     if (pixmapDamage) {
         damageMap.remove(pixmapDamage);
+#if defined HAVE_XLIB || defined Q_WS_X11
         MDeclarativeScreen* screen = MDeclarativeScreen::instance();
         XDamageDestroy(screen->display(), pixmapDamage);
+#endif
         pixmapDamage = 0;
     }
 #endif
@@ -436,7 +445,7 @@ void MDeclarativeStatusBar::sharedPixmapHandleReceived(QDBusPendingCallWatcher *
     updateSharedTexture = true;
     update();
 #else
-#ifdef HAVE_XLIB
+#if defined HAVE_XLIB || defined Q_WS_X11
     sharedPixmap = QPixmap::fromX11Pixmap(sharedPixmapHandle, QPixmap::ExplicitlyShared);
 #endif
     setImplicitWidth(sharedPixmap.size().width());
