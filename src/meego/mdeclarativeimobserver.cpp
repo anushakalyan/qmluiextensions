@@ -85,7 +85,7 @@ bool MDeclarativeIMObserver::sceneEventFilter(QGraphicsItem * watched, QEvent * 
                 selectedTextLength == 0) {
                     m_omitInputMethodEvents = true;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-                QInputPanel *ic = qApp->inputPanel();
+                QInputMethod *ic = qApp->inputMethod();
 #else
                 QInputContext *ic = qApp->inputContext();
 #endif
