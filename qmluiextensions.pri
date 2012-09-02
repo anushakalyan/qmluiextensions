@@ -3,9 +3,9 @@
     load(mobilityconfig, true):CONFIG += mobility
 }
 
-INCLUDEPATH += $$PWD/src/components
+INCLUDEPATH += $$PWD/src/
 
-CONFIG += qt-components depend_includepath qt-components_build
+CONFIG += qmluiextensions depend_includepath qmluiextensions_build
 
 unix:!symbian {
     CONFIG(release, debug|release) {
@@ -33,8 +33,6 @@ meego {
     # in the necessary symbols at run time.
     contains(QMAKE_LFLAGS, "-Wl,--no-undefined"):LIBS += $${QMAKE_LIBS_X11}
 }
-        THEME_DIR = /home/kalyan/QtSDK/Simulator/Qt/gcc/harmattanthemes
-
     greaterThan(QT_MAJOR_VERSION, 4): include(src/compat/compat.pri)
 
 # Transition flag for aligning screen api's width/height/displayWidth/displayHeight

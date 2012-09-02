@@ -39,8 +39,8 @@
 ****************************************************************************/
 
 import QtQuick 1.1
-import com.nokia.meego 1.1
-import com.nokia.extras 1.1
+import QmlUiExtensions 1.0
+
 
 Page {
     id: listPage

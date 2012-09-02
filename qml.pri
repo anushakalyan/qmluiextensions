@@ -1,7 +1,7 @@
 isEmpty(TARGETPATH):error($$basename(_PRO_FILE_) must define TARGETPATH)
 DESTDIR = $$Q_COMPONENTS_BUILD_TREE/imports/$$member(TARGETPATH, 0)
 
-NATIVE_FILES = $$QML_FILES native/qmldir
+NATIVE_FILES = $$QML_FILES src/qmldir
 NATIVE_FILES -= qmldir
 
 !debug_and_release|CONFIG(release, debug|release): CONFIG += copy_qml_files
@@ -18,7 +18,7 @@ NATIVE_FILES -= qmldir
     }
 
     copy_native {
-        NATIVE_DESTDIR = $$Q_COMPONENTS_BUILD_TREE/imports/Qt/labs/components/native
+        NATIVE_DESTDIR = $$Q_COMPONENTS_BUILD_TREE/imports/qmluiextensions
         NATIVE_DESTDIR = $$replace(NATIVE_DESTDIR, /, $$QMAKE_DIR_SEP)
 
         win32:!win32-g++* {

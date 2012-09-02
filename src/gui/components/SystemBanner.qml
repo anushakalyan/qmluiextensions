@@ -40,7 +40,7 @@
 
 import QtQuick 1.1
 import QmlUiExtensions 1.0
-import com.nokia.extras 1.1
+
 import "constants.js" as UI
 
 InfoBanner
