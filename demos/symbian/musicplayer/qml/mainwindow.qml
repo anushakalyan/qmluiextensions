@@ -40,7 +40,7 @@
 
 //![0]
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QmlUiExtensions 1.0
 import MediaKeysObserver 1.0
 import "Storage.js" as Storage
 

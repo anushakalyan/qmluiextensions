@@ -39,7 +39,7 @@
 ****************************************************************************/
 
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QmlUiExtensions 1.0
 import "../TestUtils.js" as Utils
 import "../components"
 
@@ -394,7 +394,7 @@ Item {
 /*
 
 import QtQuick 1.1;
-import com.nokia.symbian 1.1;
+import QmlUiExtensions 1.0;
 
 Page {
     id: page;
@@ -416,7 +416,7 @@ Page {
 */
 
     function startNewPage() {
-        var filePrefix =       "import QtQuick 1.1; import com.nokia.symbian 1.1; Page { id: page; "
+        var filePrefix =       "import QtQuick 1.1; import QmlUiExtensions 1.0; Page { id: page; "
         var tabBarPrefix =         "TabBar { id: tabBar; "
         var tabBarContent =            ""
         var tabBarPostfix =        "} "

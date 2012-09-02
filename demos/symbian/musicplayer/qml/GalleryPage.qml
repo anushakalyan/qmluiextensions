@@ -39,7 +39,7 @@
 ****************************************************************************/
 
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QmlUiExtensions 1.0
 import QtMobility.gallery 1.1
 
 Page {

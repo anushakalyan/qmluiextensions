@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QmlUiExtensions 1.0
 
 Item {
     id: root
@@ -246,7 +246,7 @@ Item {
 
                     onClicked: {
                         var invertedString = root.platformInverted ? "; platformInverted: true" : ""
-                        var item = Qt.createQmlObject('import QtQuick 1.1; import com.nokia.symbian 1.1;  Button { text: \"Btn'
+                        var item = Qt.createQmlObject('import QtQuick 1.1; import QmlUiExtensions 1.0;  Button { text: \"Btn'
                                                       + buttonRow3.children.length + '\"; objectName: \"' + "Btn" + buttonRow3.children.length
                                                       + '\"' + invertedString + ' }', buttonRow3, "dynButton");
                     }
@@ -614,7 +614,7 @@ Item {
 
                     onClicked: {
                         var invertedString = root.platformInverted ? "; platformInverted: true" : ""
-                        var item = Qt.createQmlObject('import QtQuick 1.1; import com.nokia.symbian 1.1;  ToolButton { text: \"ToolBtn'
+                        var item = Qt.createQmlObject('import QtQuick 1.1; import QmlUiExtensions 1.0;  ToolButton { text: \"ToolBtn'
                                                       + buttonRow8.children.length + '\"; objectName: \"' + "ToolBtn"
                                                       + buttonRow8.children.length +'\"'+ invertedString + ' }', buttonRow8, "dynButton");
                     }

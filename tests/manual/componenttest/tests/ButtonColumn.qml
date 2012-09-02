@@ -39,7 +39,7 @@
 ****************************************************************************/
 
 import QtQuick 1.1
-import com.nokia.symbian 1.1
+import QmlUiExtensions 1.0
 import "../components"
 
 Item {
@@ -228,7 +228,7 @@ Item {
 
                     onClicked: {
                         var invertedString = root.platformInverted ? "; platformInverted: true" : ""
-                        var item = Qt.createQmlObject('import QtQuick 1.1; import com.nokia.symbian 1.1;  Button { text: \"Btn'
+                        var item = Qt.createQmlObject('import QtQuick 1.1; import QmlUiExtensions 1.0;  Button { text: \"Btn'
                                                       + buttonColumn3.children.length + '\"' + invertedString + ' }',
                                                       buttonColumn3, "dynButton");
                     }

@@ -43,7 +43,7 @@
 #include <QtDeclarative/QDeclarativeComponent>
 #include "tst_quickcomponentstest.h"
 
-static const QByteArray QT_COMP_IMPORT_STRING_SYMBIAN = "import com.nokia.symbian 1.1\n";
+static const QByteArray QT_COMP_IMPORT_STRING_SYMBIAN = "import QmlUiExtensions 1.0\n";
 
 static void failIfWarnings(QtMsgType type, const char *msg)
 {

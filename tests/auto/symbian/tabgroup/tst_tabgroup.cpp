@@ -209,7 +209,7 @@ void tst_tabgroup::testAddRemoveTabs()
 {
     const QString componentData(
         "import QtQuick 1.1\n"
-        "import com.nokia.symbian 1.1\n"
+        "import QmlUiExtensions 1.0\n"
         "Page {\n"
         "}\n");
 
