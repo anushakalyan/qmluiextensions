@@ -188,6 +188,7 @@ MDeclarativeScreenPrivate::MDeclarativeScreenPrivate(MDeclarativeScreen *qq)
         finalOrientation = MDeclarativeScreen::Landscape;
     }
     initPhysicalDisplayOrientation();
+    rotationDirection = MDeclarativeScreen::Clockwise;
 }
 
 MDeclarativeScreenPrivate::~MDeclarativeScreenPrivate()
@@ -517,14 +518,8 @@ bool MDeclarativeScreen::eventFilter(QObject *o, QEvent *e) {
 
                 //set allowedOrientations manually, because setAllowedOrientations() will not work while minimized
                 //minimized apps are forced to portrait or landscape based on maximized state
-                if (!d->allowedOrientationsBackup || (d->allowedOrientationsBackup & Portrait) || 
-                   (d->allowedOrientationsBackup & PortraitInverted)) {
-                    d->allowedOrientations = Portrait;
-                    setOrientation(Portrait);
-                } else {
-                    d->allowedOrientations = Landscape;
-                    setOrientation(Landscape);
-                }
+                if (!d->allowedOrientationsBackup || (d->allowedOrientationsBackup & d->orientation))
+                    setOrientation(d->orientation);
             } else {
                 if(d->allowedOrientationsBackup != Default) {
                     setAllowedOrientations(d->allowedOrientationsBackup);
@@ -546,6 +541,8 @@ MDeclarativeScreen::Orientations MDeclarativeScreen::platformPhysicalDisplayOrie
 
 void MDeclarativeScreen::setOrientation(Orientation o)
 {
+    if (d->orientation == o && d->finalOrientation == o)
+        return;
     d->finalOrientation = o;
     MDeclarativeScreen::Direction oldDirection = d->rotationDirection;
     if (d->orientation == o || QmlWindowState::instance()->animating())
