@@ -85,7 +85,6 @@ class QmlUiExtensionsPlugin : public QDeclarativeExtensionPlugin
 
 public:
     void initializeEngine(QDeclarativeEngine *engine, const char *uri) {
-        qDebug(uri);
         Q_ASSERT(uri == QLatin1String("QmlUiExtensions"));
 
         QDeclarativeExtensionPlugin::initializeEngine(engine, uri);
