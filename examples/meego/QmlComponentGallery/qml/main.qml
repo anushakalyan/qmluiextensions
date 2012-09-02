@@ -61,7 +61,7 @@ PageStackWindow {
     // These tools are shared by most sub-pages by assigning the id to a page's tools property
     ToolBarLayout {
         id: commonTools
-        visible: true
+        visible: false
         ToolIcon { iconId: "toolbar-back"; onClicked: { myMenu.close(); pageStack.pop(); } }
         ToolIcon { iconId: "toolbar-view-menu"; onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close() }
     }
