@@ -39,7 +39,7 @@
 ****************************************************************************/
 
 import QtQuick 1.1
-import QmlUiExtensions 1.0 as QtComponents
+import QmlUiExtensions 1.0
 
 /*
    Class: RatingIndicator
@@ -81,7 +81,7 @@ ImplicitSizeItem {
     implicitHeight: Math.max(background.height, text.paintedHeight);
     implicitWidth: background.width + (count >= 0 ? internal.textSpacing + text.paintedWidth : 0);
 
-    QtComponents.RangeModel {
+    RangeModel {
         id: model
         value: 0.0
         minimumValue: 0.0
