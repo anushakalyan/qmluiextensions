@@ -80,7 +80,7 @@ QMAKE_CACHE=$BUILD_TREE/.qmake.cache
 QMAKEFEATURES=$SOURCE_TREE/features
 [ ! -d "$BUILD_TREE/features" ] && mkdir "$BUILD_TREE/features"
 
-CONFIG_PRF="$BUILD_TREE/features/qt-components-config.prf"
+CONFIG_PRF="$BUILD_TREE/features/qmluiextensions-config.prf"
 [ -f $CONFIG_PRF ] && rm -f $CONFIG_PRF
 
 # Test for pkg-config enabled dependencies
@@ -346,7 +346,7 @@ echo "Q_COMPONENTS_BUILD_TREE = $BUILD_TREE" >> $QMAKE_CACHE
 echo
 echo "Running qmake..."
 
-QMAKEFEATURES=$QMAKEFEATURES $QMAKE $QMAKE_DEBUG -r "CONFIG+=$QMAKE_CONFIG" $SOURCE_TREE/qt-components.pro INSTALL_PREFIX="$INSTALL_PREFIX"
+QMAKEFEATURES=$QMAKEFEATURES $QMAKE $QMAKE_DEBUG -r "CONFIG+=$QMAKE_CONFIG" $SOURCE_TREE/qmluiextensions.pro INSTALL_PREFIX="$INSTALL_PREFIX"
 if [ $? != 0 ]; then
     echo "ERROR: qmake run failed."
     exit 1
