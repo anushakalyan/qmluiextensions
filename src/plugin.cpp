@@ -154,8 +154,8 @@ public:
         qmlRegisterType<MDeclarativeIMObserver>(uri, 1,0, "InputMethodObserver");
 
         qmlRegisterType<MScrollDecoratorSizer>(uri, 1,0, "ScrollDecoratorSizerCPP");
-        qmlRegisterType<QmlGlobal>(uri, SINCE_VERSION(1, 1), "Global");
-        qmlRegisterType<QRangeModel>(uri, SINCE_VERSION(1, 1), "RangeModel");
+        qmlRegisterType<QmlGlobal>(uri, 1,0, "Global");
+        qmlRegisterType<QRangeModel>(uri, 1,0, "RangeModel");
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
         // shader effect item (to be removed when fully supported in QML)

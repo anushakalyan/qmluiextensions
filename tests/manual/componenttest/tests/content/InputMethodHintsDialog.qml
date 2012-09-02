@@ -40,7 +40,7 @@
 
 import QtQuick 1.1
 import QmlUiExtensions 1.0
-import Qt.labs.components 1.1
+
 import "../../components"
 
 Dialog {
