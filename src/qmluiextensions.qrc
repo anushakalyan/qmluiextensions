@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/params">
+        <file alias="default/colors/color.params">resources/default/colors/default.params</file>
+        <file alias="default/layout/640_360_185.params">resources/default/layouts/640_360_185.params</file>
+        <file alias="default/layout/640_360_210.params">resources/default/layouts/640_360_210.params</file>
+        <file alias="default/layout/640_360_230.params">resources/default/layouts/640_360_230.params</file>
+        <file alias="default/layout/640_480_325.params">resources/default/layouts/640_480_325.params</file>
+        <file alias="default/layout/fallback.params">resources/default/layouts/fallback.params</file>
+        <file alias="meego/colors/color.params">resources/meego/colors/meego.params</file>
+    </qresource>
+</RCC>
