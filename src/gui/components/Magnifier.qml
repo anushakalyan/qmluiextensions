@@ -87,7 +87,7 @@ Item {
 
     Image {
         id: magnifierFrameImage
-        source: "/usr/share/themes/blanco/meegotouch/images/theme/basement/meegotouch-virtual-keyboard/meegotouch-seattle-magnifier-frame.png"
+        source: "image://theme/meegotouch-seattle-magnifier-frame"
     }
 
     ShaderEffectSource {
@@ -99,7 +99,7 @@ Item {
 
     Image {
         id: magnifierMaskImage
-        source: "/usr/share/themes/blanco/meegotouch/images/theme/basement/meegotouch-virtual-keyboard/meegotouch-seattle-magnifier-frame-mask.png"
+        source: "image://theme/meegotouch-seattle-magnifier-frame-mask"
     }
 
     ShaderEffectSource {
