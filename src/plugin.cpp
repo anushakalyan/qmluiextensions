@@ -261,7 +261,7 @@ public slots:
     }
 
     void changeTheme() {
-        mContext->setContextProperty("privateStyle", style->themeParams());
+        mContext->setContextProperty("theme", style->themeParams());
     }
 
 private:
