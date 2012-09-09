@@ -51,7 +51,7 @@ class QmlStyleFactory : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QObject *platformStyle READ platformStyle CONSTANT FINAL)
-    Q_PROPERTY(QObject *widgetStyle READ widgetStyle CONSTANT FINAL)
+    Q_PROPERTY(QObject *themeParams READ themeParams CONSTANT FINAL)
 
 public:
 
@@ -59,7 +59,7 @@ public:
     ~QmlStyleFactory();
 
     QObject *platformStyle() const;
-    QObject *widgetStyle() const;
+    QObject *themeParams() const;
 
 protected:
     QScopedPointer<QmlStyleFactoryPrivate> d_ptr;

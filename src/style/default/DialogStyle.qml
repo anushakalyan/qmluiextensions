@@ -49,7 +49,7 @@ Style {
     property bool centered: false
 
     property int titleBarHeight: 56
-    property color titleBarColor: "white"
+    property color titleBarColor: theme.dialogTitleBarColor
     property int titleElideMode: Text.ElideRight
 
     property int buttonsTopMargin: 10

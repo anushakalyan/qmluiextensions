@@ -60,7 +60,7 @@ Text {
 
     font.family: platformStyle.fontFamily
     font.pixelSize: platformStyle.fontPixelSize
-    color: platformStyle.textColor
+    color: platformStyle.textStyle.textColor
 
     wrapMode: Text.Wrap
 
@@ -111,8 +111,8 @@ Text {
 
                 mouseSelectionMode : TextEdit.SelectWords
 
-                selectedTextColor : platformStyle.selectedTextColor
-                selectionColor : platformStyle.selectionColor
+                selectedTextColor : platformStyle.textStyle.selectedTextColor
+                selectionColor : platformStyle.textStyle.selectionTextColor
 
                 Component.onCompleted: {
                     if ( root.elide == Text.ElideNone ) {

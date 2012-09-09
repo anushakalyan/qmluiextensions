@@ -38,21 +38,11 @@
 **
 ****************************************************************************/
 
-#ifndef QMLUIEXTENSIONSNAMESPACE_H
-#define QMLUIEXTENSIONSNAMESPACE_H
+import QtQuick 1.1
 
-#include "qtqml_bridge.h"
-#include "../core/qmlcommon.h"
-
-class Q_COMPONENTS_EXPORT QmlGlobal : public QObject
-{
-    Q_OBJECT
-    Q_ENUMS(Position)
-public:
-    explicit QmlGlobal() {}
-    enum Position { Left, Top, Right, Bottom };
-};
-
-QML_DECLARE_TYPE(QmlGlobal)
-
-#endif // QGLOBALENUMS_H
+Style {
+    property color titleColor: theme.listTitleColor
+    property color titleColorPressed: theme.listTitlePressedColor
+    property color subtitleColor: theme.listSubTitleColor
+    property color subtitleColorPressed: theme.listSubTitlePressedColor
+}

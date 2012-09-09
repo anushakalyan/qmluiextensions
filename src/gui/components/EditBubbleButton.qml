@@ -77,15 +77,15 @@ BorderImage {
         id: label
         anchors.centerIn: parent
 
-        color: platformStyle.textColor
+        color: platformStyle.tStyle.textColor
 
         font.family: platformStyle.fontFamily
         font.weight: platformStyle.fontWeight
         font.pixelSize: platformStyle.fontPixelSize
         font.capitalization: platformStyle.fontCapitalization
 
-        style: platformStyle.textStyle
-        styleColor: platformStyle.textStyleColor
+        style: platformStyle.tStyle.textStyle
+        styleColor: platformStyle.tStyle.textColor
     }
 
     MouseArea {

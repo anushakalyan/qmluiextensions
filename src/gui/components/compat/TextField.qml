@@ -290,7 +290,7 @@ FocusScope {
         }
 
         font: root.platformStyle.textFont
-        color: root.platformStyle.promptTextColor
+        color: root.platformStyle.textStyle.promptTextColor
         elide: Text.ElideRight
 
         // opacity for default state
@@ -384,8 +384,8 @@ FocusScope {
         font: root.platformStyle.textFont
         color: root.platformStyle.textColor
         selectByMouse: false
-        selectedTextColor: root.platformStyle.selectedTextColor
-        selectionColor: root.platformStyle.selectionColor
+        selectedTextColor: root.platformStyle.textStyle.selectedTextColor
+        selectionColor: root.platformStyle.textStyle.selectionTextColor
         mouseSelectionMode: TextInput.SelectWords
         focus: true
 

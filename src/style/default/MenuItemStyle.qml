@@ -43,18 +43,13 @@ import "UIConstants.js" as UI
 
 Style {
     id: root
+    property TextStyle textStyle: TextStyle{}
     // Font
     property string fontFamily: __fontFamily
     property int fontPixelSize: 26 // UI.FONT_DEFAULT_SIZE
     property int fontCapitalization: Font.MixedCase
     property int fontWeight: Font.Bold
     property int height: 80
-
-    // Text Color
-    property color textColor: inverted ? UI.COLOR_BUTTON_INVERTED_FOREGROUND : UI.COLOR_BUTTON_FOREGROUND
-    property color pressedTextColor: inverted ? UI.COLOR_BUTTON_INVERTED_FOREGROUND : UI.COLOR_BUTTON_FOREGROUND
-    property color disabledTextColor: "#797979"
-    property color checkedTextColor: UI.COLOR_INVERTED_FOREGROUND
 
     property real leftMargin: 24
     property real rightMargin: 24

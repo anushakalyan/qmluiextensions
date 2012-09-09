@@ -44,10 +44,9 @@ import "constants.js" as UI
 
 ButtonStyle {
     // Text Color
-    textColor: UI.COLOR_BUTTON_INVERTED_FOREGROUND
-    pressedTextColor: UI.COLOR_BUTTON_SECONDARY_FOREGROUND
-    disabledTextColor: UI.COLOR_BUTTON_INVERTED_DISABLED_FOREGROUND
-    checkedTextColor: UI.COLOR_BUTTON_INVERTED_FOREGROUND
+    textStyle.textColor: theme.positiveButtonTextColor
+    textStyle.pressedTextColor: theme.positiveButtonPressedTextColor
+    textStyle.checkedTextColor: theme.positiveButtonLatchedTextColor
 
     // Background
     background: "image://theme/meegotouch-button-positive-background"

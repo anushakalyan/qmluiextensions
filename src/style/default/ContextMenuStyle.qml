@@ -46,7 +46,7 @@ MenuStyle {
      property string titleFontFamily: __fontFamily
      property int titleFontPixelSize: UI.FONT_SMALL
      property int titleFontCapitalization: Font.MixedCase
-     property color titleTextColor: "white"
+     property color titleTextColor: theme.dialogTitleBarTextColor
 
      property int titleBarHeight: 56
 

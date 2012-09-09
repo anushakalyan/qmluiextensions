@@ -284,7 +284,7 @@ FocusScope {
         anchors.bottomMargin: (UI.FIELD_DEFAULT_HEIGHT - font.pixelSize) / 2
 
         font: root.platformStyle.textFont
-        color: root.platformStyle.promptTextColor
+        color: root.platformStyle.textStyle.promptTextColor
         elide: Text.ElideRight
 
         // opacity for default state
@@ -380,10 +380,10 @@ FocusScope {
         width: parent.width - UI.PADDING_XLARGE * 2
 
         font: root.platformStyle.textFont
-        color: root.platformStyle.textColor
+        color: root.platformStyle.textStyle.textColor
         selectByMouse: false
-        selectedTextColor: root.platformStyle.selectedTextColor
-        selectionColor: root.platformStyle.selectionColor
+        selectedTextColor: root.platformStyle.textStyle.selectedTextColor
+        selectionColor: root.platformStyle.textStyle.selectionTextColor
         mouseSelectionMode: TextInput.SelectWords
         wrapMode: TextEdit.Wrap
         persistentSelection: false

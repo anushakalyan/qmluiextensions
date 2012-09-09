@@ -62,7 +62,6 @@ QmlPlatformStyle::QmlPlatformStyle(QmlStyleEngine *engine, QObject *parent)
     d->engine = engine;
     QObject::connect(engine, SIGNAL(fontParametersChanged()), this, SIGNAL(fontParametersChanged()));
     QObject::connect(engine, SIGNAL(layoutParametersChanged()), this, SIGNAL(layoutParametersChanged()));
-    QObject::connect(engine, SIGNAL(colorParametersChanged()), this, SIGNAL(colorParametersChanged()));
 }
 
 QmlPlatformStyle::~QmlPlatformStyle()
@@ -141,147 +140,104 @@ int QmlPlatformStyle::borderSizeMedium() const
     return d->engine->layoutParameter(QLatin1String("border-size-medium"));
 }
 
-QColor QmlPlatformStyle::colorBackground() const
+int QmlPlatformStyle::statusBarHeight() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-background"));
+    return d->engine->layoutParameter(QLatin1String("status-bar-height"));
 }
 
-QColor QmlPlatformStyle::colorNormalLight() const
+int QmlPlatformStyle::tabBarHeightPortrait() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-light"));
+    return d->engine->layoutParameter(QLatin1String("tab-bar-height-portrait"));
 }
 
-QColor QmlPlatformStyle::colorNormalMid() const
+int QmlPlatformStyle::tabBarHeightLandscape() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-mid"));
+    return d->engine->layoutParameter(QLatin1String("tab-bar-height-landscape"));
 }
 
-QColor QmlPlatformStyle::colorNormalDark() const
+int QmlPlatformStyle::toolBarHeightPortrait() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-dark"));
+    return d->engine->layoutParameter(QLatin1String("tool-bar-height-portrait"));
 }
 
-QColor QmlPlatformStyle::colorNormalLink() const
+int QmlPlatformStyle::toolBarHeightLandscape() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-link"));
+    return d->engine->layoutParameter(QLatin1String("tool-bar-height-landscape"));
 }
 
-QColor QmlPlatformStyle::colorPressed() const
+int QmlPlatformStyle::scrollBarThickness() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-pressed"));
+    return d->engine->layoutParameter(QLatin1String("scroll-bar-thickness"));
 }
 
-QColor QmlPlatformStyle::colorLatched() const
+int QmlPlatformStyle::sliderThickness() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-latched"));
+    return d->engine->layoutParameter(QLatin1String("slider-thickness"));
 }
 
-QColor QmlPlatformStyle::colorHighlighted() const
+int QmlPlatformStyle::menuItemHeight() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-highlighted"));
+    return d->engine->layoutParameter(QLatin1String("menu-item-height"));
 }
 
-QColor QmlPlatformStyle::colorDisabledLight() const
+int QmlPlatformStyle::dialogMinSize() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-disabled-light"));
+    return d->engine->layoutParameter(QLatin1String("dialog-min-size"));
 }
 
-QColor QmlPlatformStyle::colorDisabledMid() const
+int QmlPlatformStyle::dialogMaxSize() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-disabled-mid"));
+    return d->engine->layoutParameter(QLatin1String("dialog-max-size"));
 }
 
-QColor QmlPlatformStyle::colorDisabledDark() const
+int QmlPlatformStyle::textFieldHeight() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-disabled-dark"));
+    return d->engine->layoutParameter(QLatin1String("text-field-height"));
 }
 
-QColor QmlPlatformStyle::colorTextSelection() const
+int QmlPlatformStyle::switchButtonHeight() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-text-selection"));
+    return d->engine->layoutParameter(QLatin1String("switch-button-height"));
 }
 
-QColor QmlPlatformStyle::colorBackgroundInverted() const
+int QmlPlatformStyle::ratingIndicatorImageWidth() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-background-inverse"));
+    return d->engine->layoutParameter(QLatin1String("rating-image-width"));
 }
 
-QColor QmlPlatformStyle::colorNormalLightInverted() const
+int QmlPlatformStyle::ratingIndicatorImageHeight() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-light-inverse"));
+    return d->engine->layoutParameter(QLatin1String("rating-image-height"));
 }
 
-QColor QmlPlatformStyle::colorNormalMidInverted() const
+int QmlPlatformStyle::buttonSize() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-mid-inverse"));
+    return d->engine->layoutParameter(QLatin1String("button-size"));
 }
 
-QColor QmlPlatformStyle::colorNormalDarkInverted() const
+QString QmlPlatformStyle::currentStyle() const
 {
     Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-dark-inverse"));
+    return d->engine->platformStyle();
 }
-
-QColor QmlPlatformStyle::colorNormalLinkInverted() const
+void QmlPlatformStyle::setCurrentStyle(const QString &newstyle)
 {
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-normal-link-inverse"));
-}
-
-QColor QmlPlatformStyle::colorPressedInverted() const
-{
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-pressed-inverse"));
-}
-
-QColor QmlPlatformStyle::colorLatchedInverted() const
-{
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-latched-inverse"));
-}
-
-QColor QmlPlatformStyle::colorHighlightedInverted() const
-{
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-highlighted-inverse"));
-}
-
-QColor QmlPlatformStyle::colorDisabledLightInverted() const
-{
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-disabled-light-inverse"));
-}
-
-QColor QmlPlatformStyle::colorDisabledMidInverted() const
-{
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-disabled-mid-inverse"));
-}
-
-QColor QmlPlatformStyle::colorDisabledDarkInverted() const
-{
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-disabled-dark-inverse"));
-}
-
-QColor QmlPlatformStyle::colorTextSelectionInverted() const
-{
-    Q_D(const QmlPlatformStyle);
-    return d->engine->colorParameter(QLatin1String("color-text-selection-inverse"));
+    Q_D(QmlPlatformStyle);
+    d->engine->setPlatformStyle(newstyle);
 }
 

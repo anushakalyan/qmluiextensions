@@ -47,8 +47,8 @@ Style {
     property bool fontBoldProperty: true
 
     // Color
-    property color textColorHighlighted: "#fff"
-    property color textColor: "#888"
+    property color textColorHighlighted: theme.highlightedTextColor
+    property color textColor: theme.sectionScrollerTextColor
 
     property url dividerImage: "image://theme/meegotouch-scroll-bubble-divider"+__invertedString
     property url backgroundImage: "image://theme/meegotouch-scroll-bubble-background"+__invertedString

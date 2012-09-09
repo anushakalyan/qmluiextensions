@@ -44,7 +44,7 @@ import "UIConstants.js" as UI
 DialogStyle {
     property alias titleBarFont: titleText.font
     property int titleBarHeight: 44
-    property color titleBarColor: "white"
+    property color titleBarColor: theme.dialogTitleBarColor
     property int titleBarIndent: 17
     property int titleBarLineMargin: 10
 
@@ -61,16 +61,16 @@ DialogStyle {
     property int fontXSmall: 18
     property int fontXXSmall: 16
 
-    property color colorForeground: "#191919"
-    property color colorSecondaryForeground: "#8c8c8c"
-    property color colorBackground: "#ffffff"
-    property color colorSelect: "#7fb133"
+    property color colorForeground: theme.selectionDialogForegroundColor
+    property color colorSecondaryForeground: theme.selectionDialogSecondaryForegroundColor
+    property color colorBackground: theme.selectionDialogBackgroundColor
+    property color colorSelect: theme.selectionDialogSelectColor
 
-    property color commonLabelColor: "white"
+    property color commonLabelColor: theme.selectionDialogCommonLabelColor
 
     property int itemHeight: 64
-    property color itemTextColor: "white"
-    property color itemSelectedTextColor: "white"
+    property color itemTextColor: theme.selectionDialogItemTextColor
+    property color itemSelectedTextColor: theme.selectionDialogItemSelectedTextColor
     property int itemLeftMargin: 16
     property int itemRightMargin: 16
 
@@ -80,8 +80,8 @@ DialogStyle {
 
     // Background
     property url itemBackground: ""
-    property color itemBackgroundColor: "transparent"
-    property color itemSelectedBackgroundColor: "#3D3D3D"
+    property color itemBackgroundColor: theme.selectionDialogItemBackgroundColor
+    property color itemSelectedBackgroundColor: theme.selectionDialogItemSelectedBackgroundColor
     property url itemSelectedBackground: "" // "image://theme/" + __colorString + "meegotouch-list-fullwidth-background-selected"
     property url itemPressedBackground: "image://theme/" + __colorString + "meegotouch-panel-inverted-background-pressed"
 

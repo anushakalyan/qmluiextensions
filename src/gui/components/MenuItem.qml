@@ -122,9 +122,9 @@ Item {
         font.family : root.platformStyle.fontFamily
         font.pixelSize : root.platformStyle.fontPixelSize
         font.weight: root.platformStyle.fontWeight
-        color: !root.enabled ? root.platformStyle.disabledTextColor :
-                root.pressed ? root.platformStyle.pressedTextColor :
-                root.platformStyle.textColor
+        color: !root.enabled ? root.platformStyle.textStyle.disabledTextColor :
+                root.pressed ? root.platformStyle.textStyle.pressedTextColor :
+                root.platformStyle.textStyle.textColor
 
         anchors.topMargin : root.platformStyle.topMargin
         anchors.bottomMargin : root.platformStyle.bottomMargin

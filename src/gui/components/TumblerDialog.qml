@@ -91,7 +91,7 @@ Dialog {
         objectName: "titleText"
         text: "Tumbler Dialog"
         visible: text.length > 0
-        color: theme.selectionColor
+        color: theme.selectionTextColor
         font { pixelSize: 32; family: labelStyle.fontFamily }
         elide: Text.ElideRight
     }

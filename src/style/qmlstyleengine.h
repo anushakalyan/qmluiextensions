@@ -52,13 +52,15 @@ class QmlStyleEngine : public QObject
     Q_OBJECT
 
 public:
-    explicit QmlStyleEngine(QObject *parent = 0,QString styleName = "default");
+    explicit QmlStyleEngine(const QString &styleName, const QString &colorSchemeName,QObject *parent = 0);
     ~QmlStyleEngine();
 
     int layoutParameter(const QString &parameter) const;
     QColor colorParameter(const QString &parameter) const;
     QString fontFamilyParameter(const QString &parameter) const;
     void setPlatformStyle(const QString &newStyle);
+    QString platformStyle();
+    void setColorScheme(const QString &newTheme);
 
 Q_SIGNALS:
     void fontParametersChanged();

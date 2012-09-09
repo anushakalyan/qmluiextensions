@@ -47,7 +47,9 @@
 #include <QApplication>
 #include <QtDeclarative>
 #include <QDeclarativePropertyMap>
-#include "mdeclarativeview.h"
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#include "gui/core/mdeclarativeview.h"
+#endif
 #include "shadereffectitem/shadereffectitem.h"
 #include "shadereffectitem/shadereffectsource.h"
 #include "gui/core/msnapshot.h"
@@ -64,7 +66,9 @@
 #include "gui/core/mdeclarativeimplicitsizeitem.h"
 #include "gui/components/mdeclarativemaskeditem.h"
 #include "gui/components/mdatetimehelper.h"
-#include "style/mthemeplugin.h"
+#include "style/qmlthemeparams.h"
+#include "style/qmlplatformstyle.h"
+#include "style/qmlstylefactory.h"
 #include "i18n/mtexttranslator.h"
 #include "qmlmousefilter_bridge.h"
 #include "gui/core/mscrolldecoratorsizer.h"
@@ -74,7 +78,6 @@
 #include "core/qmlcommon.h"
 #include "i18n/mlocalewrapper.h"
 #include "gui/models/qrangemodel.h"
-#include "core/qmluiextensionsnamespace.h"
 
 class QmlUiExtensionsPlugin : public QDeclarativeExtensionPlugin
 {
@@ -91,27 +94,31 @@ public:
 
         // If plugin was initialized once, do not initialize it again
         if(!engine->imageProvider(QLatin1String("theme"))) {
+            mContext = engine->rootContext();
             engine->addImageProvider(QLatin1String("theme"), new MDeclarativeImageProvider);
 
-            engine->rootContext()->setContextProperty("screen", MDeclarativeScreen::instance());
+            mContext->setContextProperty("screen", MDeclarativeScreen::instance());
             qmlRegisterUncreatableType<MDeclarativeScreen>(uri, 1,0, "Screen", "");
 
-            engine->rootContext()->setContextProperty("platformWindow", QmlWindowState::instance());
+            mContext->setContextProperty("platformWindow", QmlWindowState::instance());
             qmlRegisterUncreatableType<QmlWindowState>(uri, 1,0, "WindowState", "");
 
-            engine->rootContext()->setContextProperty("theme", new MThemePlugin);
-            qmlRegisterUncreatableType<MThemePlugin>(uri, 1,0, "Theme", "");
+            style = new QmlStyleFactory();
+            mContext->setContextProperty("platformStyle", style->platformStyle());
+            mContext->setContextProperty("theme", style->themeParams());
+            qmlRegisterUncreatableType<QmlThemeParams>(uri, 1,0, "Theme", "");
+            qmlRegisterUncreatableType<QmlPlatformStyle>(uri, 1,0, "PlatformStyle", "");
 
-            engine->rootContext()->setContextProperty("inputContext", new MDeclarativeInputContext);
+            mContext->setContextProperty("inputContext", new MDeclarativeInputContext);
             qmlRegisterUncreatableType<MDeclarativeInputContext>(uri, 1,0, "InputContext", "");
 
-            engine->rootContext()->setContextProperty("textTranslator", new MTextTranslator);
+            mContext->setContextProperty("textTranslator", new MTextTranslator);
             qmlRegisterUncreatableType<MTextTranslator>(uri, 1,0, "TextTranslator", "");
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-            engine->rootContext()->setContextProperty("declarativeView", new MDeclarativeView());
+            mContext->setContextProperty("declarativeView", new MDeclarativeView());
             qmlRegisterUncreatableType<MDeclarativeView>(uri, 1,0, "DeclarativeView", "");
 #endif
-             engine->rootContext()->setContextProperty("dateTime", new MDateTimeHelper(engine->rootContext()));
+             mContext->setContextProperty("dateTime", new MDateTimeHelper(mContext));
              qmlRegisterUncreatableType<MDateTimeHelper>(uri, 1, 0, "DateTime", "");
 
             // Disable cursor blinking + make double tapping work the way it is done in lmt.
@@ -122,9 +129,13 @@ public:
             }
 
             MLocaleWrapper *locale = new MLocaleWrapper;
-            engine->rootContext()->setContextProperty("locale", locale);
-            engine->rootContext()->setContextProperty("UiConstants", uiConstants(locale));
+            mContext->setContextProperty("locale", locale);
+            mContext->setContextProperty("UiConstants", uiConstants(locale));
             qmlRegisterUncreatableType<MLocaleWrapper>(uri, 1,0, "Locale", "");
+
+            QObject::connect(style->platformStyle(), SIGNAL(fontParametersChanged()), this, SLOT(resetPlatformStyle()));
+            QObject::connect(style->platformStyle(), SIGNAL(layoutParametersChanged()), this, SLOT(resetPlatformStyle()));
+            QObject::connect(style->themeParams(), SIGNAL(colorSchemeChanged()), this, SLOT(changeTheme()));
         }
     }
 
@@ -154,7 +165,6 @@ public:
         qmlRegisterType<MDeclarativeIMObserver>(uri, 1,0, "InputMethodObserver");
 
         qmlRegisterType<MScrollDecoratorSizer>(uri, 1,0, "ScrollDecoratorSizerCPP");
-        qmlRegisterType<QmlGlobal>(uri, 1,0, "Global");
         qmlRegisterType<QRangeModel>(uri, 1,0, "RangeModel");
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
@@ -243,6 +253,24 @@ public:
 
         return uiConstantsData;
     }
+
+public slots:
+
+    void resetPlatformStyle() {
+        mContext->setContextProperty("platformStyle", style->platformStyle());
+    }
+
+    void changeTheme() {
+        mContext->setContextProperty("privateStyle", style->themeParams());
+    }
+
+private:
+#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
+    QDeclarativeContext *mContext;
+#else
+    QQmlContext *mContext;
+#endif
+    QmlStyleFactory *style;
 };
 
 #include "plugin.moc"

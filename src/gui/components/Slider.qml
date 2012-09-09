@@ -148,7 +148,7 @@ SliderTemplate {
             id: label
             anchors.centerIn: parent
             text: slider.valueIndicatorText
-            color: slider.platformStyle.textColor
+            color: slider.platformStyle.textStyle.textColor
             font.pixelSize: slider.platformStyle.fontPixelSize
             font.family: slider.platformStyle.fontFamily
         }

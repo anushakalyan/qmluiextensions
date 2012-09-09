@@ -38,49 +38,19 @@
 **
 ****************************************************************************/
 
-#ifndef MTHEMEPLUGIN_H
-#define MTHEMEPLUGIN_H
+import QtQuick 1.1
 
-#include <qglobal.h>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <qqml.h>
-#else
-#include <qdeclarative.h>
-#endif
+QtObject {
+    id: textStyleClass
+    // Settings
+    // Text Color
+    property color textColor: theme.textColor
+    property color pressedTextColor: theme.pressedTextColor
+    property color disabledTextColor: theme.disabledTextColor
+    property color checkedTextColor: theme.checkedTextColor
+    property color selectedTextColor: theme.selectedTextColor
+    property color selectionTextColor: theme.selectionTextColor
+    property color promptTextColor: theme.promptTextColor
+}
 
-class MThemePlugin : public QObject
-{
-    Q_OBJECT
 
-    Q_PROPERTY(bool inverted READ isInverted WRITE setInverted NOTIFY invertedChanged FINAL)
-    Q_PROPERTY(QString colorScheme READ colorScheme WRITE setColorScheme NOTIFY colorSchemeChanged FINAL)
-    Q_PROPERTY(QString colorString READ colorString NOTIFY colorStringChanged FINAL)
-    Q_PROPERTY(QString selectionColor READ selectionColor NOTIFY selectionColorChanged FINAL)
-
-public:
-    MThemePlugin(QObject *parent = 0);
-    virtual ~MThemePlugin();
-
-    bool isInverted() const;
-    void setInverted(bool inverted);
-    QString colorScheme() const;
-    void setColorScheme(QString colorScheme);
-    QString colorString() const;
-    QString selectionColor() const;
-
-Q_SIGNALS:
-    void invertedChanged();
-    void colorSchemeChanged();
-    void colorStringChanged();
-    void selectionColorChanged();
-
-private:
-    bool m_inverted;
-    QString m_colorScheme;
-    QString m_colorString;
-    QString m_selectionColor;
-    Q_DISABLE_COPY(MThemePlugin)
-};
-
-QML_DECLARE_TYPE(MThemePlugin)
-#endif // MTHEMEPLUGIN_H

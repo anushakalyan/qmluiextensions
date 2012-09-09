@@ -51,8 +51,6 @@ ButtonStyle {
     fontWeight: Font.Bold
     horizontalAlignment: Text.AlignHCenter
 
-    property color textColor: UI.COLOR_BUTTON_INVERTED_FOREGROUND
-
     // Background
     backgroundMarginRight: 22
     backgroundMarginLeft: 22

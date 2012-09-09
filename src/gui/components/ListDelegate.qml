@@ -44,21 +44,17 @@ import "constants.js" as UI
 
 Item {
     id: listItem
-
+    property ListDelegateStyle widgetStyle: ListDelegateStyle {}
     signal clicked
     property alias pressed: mouseArea.pressed
 
     property int titleSize: UI.LIST_TILE_SIZE
     property int titleWeight: Font.Bold
     property string titleFont: (locale && locale.language == "fa") ? UI.FONT_FAMILY_FARSI : UI.FONT_FAMILY
-    property color titleColor: theme.inverted ? UI.LIST_TITLE_COLOR_INVERTED : UI.LIST_TITLE_COLOR
-    property color titleColorPressed: theme.inverted ? UI.LIST_TITLE_COLOR_PRESSED_INVERTED : UI.LIST_TITLE_COLOR_PRESSED
 
     property int subtitleSize: UI.LIST_SUBTILE_SIZE
     property int subtitleWeight: Font.Normal
     property string subtitleFont: (locale && locale.language == "fa") ? UI.FONT_FAMILY_LIGHT_FARSI : UI.FONT_FAMILY_LIGHT
-    property color subtitleColor: theme.inverted ? UI.LIST_SUBTITLE_COLOR_INVERTED : UI.LIST_SUBTITLE_COLOR
-    property color subtitleColorPressed: theme.inverted ? UI.LIST_SUBTITLE_COLOR_PRESSED_INVERTED : UI.LIST_SUBTITLE_COLOR_PRESSED
 
     property string iconSource: model.iconSource ? model.iconSource : ""
     property string titleText: model.title
@@ -101,7 +97,7 @@ Item {
                 font.family: listItem.titleFont
                 font.weight: listItem.titleWeight
                 font.pixelSize: listItem.titleSize
-                color: mouseArea.pressed ? listItem.titleColorPressed : listItem.titleColor
+                color: mouseArea.pressed ? listItem.widgetStyle.titleColorPressed : listItem.widgetStyle.titleColor
             }
 
             Label {
@@ -110,7 +106,7 @@ Item {
                 font.family: listItem.subtitleFont
                 font.weight: listItem.subtitleWeight
                 font.pixelSize: listItem.subtitleSize
-                color: mouseArea.pressed ? listItem.subtitleColorPressed : listItem.subtitleColor
+                color: mouseArea.pressed ? listItem.widgetStyle.subtitleColorPressed : listItem.widgetStyle.subtitleColor
 
                 visible: text != ""
             }

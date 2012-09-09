@@ -47,7 +47,7 @@ Style {
     property url background: ""
 
     // Background color is used when no background is set.
-    property color backgroundColor: theme.inverted ? "#000000" : "#E0E1E2"
+    property color backgroundColor: theme.windowBackgroundColor
 
     property url landscapeBackground: background
     property url portraitBackground: background

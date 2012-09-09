@@ -49,9 +49,11 @@ Style {
     property int fontWeight: Font.Normal
 
     // Text
-    property color textColor: "black"
-    property int textStyle: Text.Sunken
-    property color textStyleColor: "#111111"
+    // platformStyle API
+    property TextStyle tStyle: TextStyle{
+        textColor: theme.dialogTitleTextColor
+        property int textStyle: Text.Sunken
+    }
 
     // Dimensions
     property int buttonWidth: 40 // DEPRECATED

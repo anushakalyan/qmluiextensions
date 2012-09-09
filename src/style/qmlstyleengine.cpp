@@ -45,10 +45,12 @@
 #include <QHash>
 #include <QLatin1String>
 #include <QFont>
+#include <QDir>
 #include <QMetaObject>
 #include <qobjectdefs.h>
 #include <QFile>
 #include <qmath.h>
+#include <QDebug>
 
 #include "qmlstyleengine.h"
 #include "mdeclarativescreen_bridge.h"
@@ -73,9 +75,9 @@ public:
         ParameterType_Color
     };
 
-    void init(QString styleName);
+    void init(const QString &styleName, const QString &colorSchemeName);
     bool updateLayoutParameters();
-    void updateColorParameters();
+    bool updateColorParameters();
     void loadParameters(const QString &filePath, ParameterType type);
     void resolveFont();
     void _q_displayChanged();
@@ -88,28 +90,46 @@ private:
     QHash<QString, QString> fontFamilyParameters;
     QString displayConfig;
     QString mStyleName;
+    //QString mLayoutStyleDirectory;
+    QString mLastUsedLayoutFile;
+    //QString mColorSchemeDirectory;
+    QString mColorScheme;
+    QString mLastUsedColorFile;
+    bool mUseDefaultFallBackParams;
     Q_DECLARE_PUBLIC(QmlStyleEngine)
 };
 
-void QmlStyleEnginePrivate::init(QString styleName)
+void QmlStyleEnginePrivate::init(const QString &styleName, const QString &colorSchemeName)
 {
-    mStyleName = styleName;
-    updateLayoutParameters();
-    updateColorParameters();
+    Q_Q(QmlStyleEngine);
+    q->setPlatformStyle(styleName);
+    q->setColorScheme(colorSchemeName);
     resolveFont();
 }
 
-void QmlStyleEnginePrivate::updateColorParameters()
+bool QmlStyleEnginePrivate::updateColorParameters()
 {
-    QString paramsFile;
-    if (!mStyleName.compare("default"))
-        paramsFile = QLatin1String(":/params/")+mStyleName+"/"+"colors"+"/"+"color.params";
-    else {
-        paramsFile = QLatin1String(":/params/")+mStyleName+"/"+"colors"+"/"+"color.params";
-        if (!QFile::exists(paramsFile))
-            paramsFile = QLatin1String(":/params/")+"default"+"/"+"colors"+"/"+"color.params";
+    QString paramsFile(":/params/"+mStyleName+"/colors/" + mColorScheme +".params");
+    qDebug("first try with color%s",qPrintable(paramsFile));
+    if (!QFile::exists(paramsFile)) {//if no current scheme exits check for default style color scheme
+        qWarning("no %s color scheme settings found for current platform style",qPrintable(mColorScheme));
+        paramsFile = ":/params/"+mStyleName+"/colors/default.params";
+            qDebug("second try with color%s",qPrintable(paramsFile));
+        if (!QFile::exists(paramsFile)) {//if no current defualt scheme exits fall back to default style color scheme
+            qWarning("no default color scheme settings found for current style, using defualt colour scheme from default style.");
+            mColorScheme = "default";
+            paramsFile = ":/params/default/"+mColorScheme+".params";
+                qDebug("third try with color%s",qPrintable(paramsFile));
+        }
     }
-    loadParameters(paramsFile, ParameterType_Color);
+    if (mLastUsedColorFile.compare(paramsFile)) {
+        colorParameters.clear();
+        mLastUsedColorFile = paramsFile;
+        qDebug("using try with color%s",qPrintable(paramsFile));
+        loadParameters(paramsFile, ParameterType_Color);
+        return true;
+    }
+    return false;
 }
 
 bool QmlStyleEnginePrivate::updateLayoutParameters()
@@ -119,14 +139,30 @@ bool QmlStyleEnginePrivate::updateLayoutParameters()
     QString shortEdge = QString::number(qMin(screen->displayWidth(), screen->displayHeight()));
     QString ppi = QString::number(qRound(screen->dpi() / 5.0) * 5); // round to closest 5
     QString newDisplayConfig = longEdge + QLatin1Char('_') + shortEdge + QLatin1Char('_') + ppi;
-
     if (displayConfig != newDisplayConfig) {
-        layoutParameters.clear();
-        QString layoutFile = QLatin1String(":/params/default/layouts/") + newDisplayConfig + QLatin1String(".params");
-        if (QFile::exists(layoutFile))
-            loadParameters(layoutFile, ParameterType_Integer);
-        else
-            loadParameters(QLatin1String(":/params/default/layouts/fallback.params"), ParameterType_Unit);
+        ParameterType type = ParameterType_Integer;
+        QString layoutFile(":/params/"+mStyleName+"/layouts/" + newDisplayConfig +".params");
+            qDebug("first try with layout %s",qPrintable(layoutFile));
+        if (!QFile::exists(layoutFile)) {
+            type = ParameterType_Unit;
+            qDebug("no specification found for current dispaly config, using fallback params");
+            if (!mUseDefaultFallBackParams) {
+                layoutFile = ":/params/"+mStyleName+"/layouts/" + newDisplayConfig +"fallback.params";
+                qDebug("second try with layout%s",qPrintable(layoutFile));
+                if (!QFile::exists(layoutFile)) {
+                    qDebug("no fallback params found for current style, using default style fallback params");
+                    mUseDefaultFallBackParams = true;
+                }
+            }
+            if (mUseDefaultFallBackParams)
+                layoutFile = QLatin1String(":/params/default/layouts/fallback.params");
+        }
+        if (mLastUsedLayoutFile.compare(layoutFile)) {
+            layoutParameters.clear();
+            qDebug("final try with layout%s",qPrintable(layoutFile));
+            mLastUsedLayoutFile = layoutFile;
+            loadParameters(layoutFile, type);
+        }
         displayConfig = newDisplayConfig;
         return true;
     }
@@ -155,7 +191,7 @@ void QmlStyleEnginePrivate::loadParameters(const QString &filePath, ParameterTyp
         // - ATAN_FACTOR: controls the "steepness" of the arctan curve
         MDeclarativeScreen *screen = MDeclarativeScreen::instance();
         qreal inchSize = qSqrt(screen->height() * screen->height()
-            + screen->width() * screen->width()) / screen->dpi();
+                               + screen->width() * screen->width()) / screen->dpi();
         qreal pthMm = MID_VALUE + RANGE * qAtan(ATAN_FACTOR * (inchSize - MID_POINT)) / M_PI;
         unit = 0.25 * pthMm * screen->dpi() / 25.4;
     }
@@ -173,12 +209,15 @@ void QmlStyleEnginePrivate::loadParameters(const QString &filePath, ParameterTyp
             if (colonId < 0)
                 return;
 
-            QVariant value;
+            // QVariant value;
             QString valueStr = line.mid(colonId + 1).trimmed();
             if (type == ParameterType_Color) {
                 // do implicit string-to-color conversion
                 QColor color(valueStr);
-                colorParameters.insert(line.left(colonId).trimmed(), color);
+                QString trimmedvalue = line.left(colonId).trimmed();
+                qDebug()<<color;
+                qDebug("value:%s",qPrintable(trimmedvalue));
+                colorParameters.insert(trimmedvalue, color);
             } else {
                 int intVal(-1);
                 bool ok(false);
@@ -216,7 +255,7 @@ void QmlStyleEnginePrivate::_q_displayChanged()
         emit q->layoutParametersChanged();
 }
 
-QmlStyleEngine::QmlStyleEngine(QObject *parent,QString styleName)
+QmlStyleEngine::QmlStyleEngine(const QString &styleName, const QString &colorSchemeName,QObject *parent)
     : QObject(parent),
       d_ptr(new QmlStyleEnginePrivate())
 {
@@ -224,7 +263,7 @@ QmlStyleEngine::QmlStyleEngine(QObject *parent,QString styleName)
     d->q_ptr = this;
     // Screen size can change on desktop (RnD feature)
     QObject::connect(MDeclarativeScreen::instance(), SIGNAL(displayChanged()), this, SLOT(_q_displayChanged()));
-    d->init(styleName);
+    d->init(styleName,colorSchemeName);
 }
 
 QmlStyleEngine::~QmlStyleEngine()
@@ -253,7 +292,46 @@ QString QmlStyleEngine::fontFamilyParameter(const QString &parameter) const
 void QmlStyleEngine::setPlatformStyle(const QString &newStyle)
 {
     Q_D(QmlStyleEngine);
-    d->mStyleName = newStyle;
+    if (d->mStyleName.compare(newStyle)) {
+        d->mUseDefaultFallBackParams = false;
+        d->mStyleName = newStyle;
+       /* //resolve the correct directory, dont change the working style if not found
+        QString workingDirectory(":/params/"+newStyle+"/");
+        QDir dir;
+        if (!dir.exists(workingDirectory)) {
+            //dont have the correspoding files stay with existing style
+            qWarning("failed to find relevant style directory falling back to default style");
+            return;
+        } else {
+            d->mStyleName = newStyle;
+            //check for valid layout params directory else use the default style layout params
+            QString newLayoutDirectory(workingDirectory+"layouts/");
+            if (dir.exists(newLayoutDirectory))
+                d->mLayoutStyleDirectory = newLayoutDirectory;
+            else {
+                qWarning("failed to find layout definitions of current style,falling back to default style layout definitions.This is ok if only colorscheme was changed for the style");
+                d->mLayoutStyleDirectory = QLatin1String(":/params/default/layouts/");
+            }
+            QString newColorDirectory(workingDirectory+"colors/");
+            if (dir.exists(newColorDirectory))
+                d->mColorSchemeDirectory = newColorDirectory;
+            else {
+                qWarning("failed to find color definitions of current style,falling back to default style color definitions.This is ok if only layoutparams was changed for the style");
+                d->mColorSchemeDirectory = QLatin1String(":/params/default/colors/");
+            }
+        }*/
+         d->updateLayoutParameters();
+    }
+}
+
+void QmlStyleEngine::setColorScheme(const QString &newTheme)
+{
+    Q_D(QmlStyleEngine);
+    if (d->mColorScheme.compare(newTheme)) {
+        d->mColorScheme = newTheme;
+        if (d->updateColorParameters())
+            emit colorParametersChanged();
+    }
 }
 
 #include "moc_qmlstyleengine.cpp"

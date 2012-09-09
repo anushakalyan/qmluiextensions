@@ -131,7 +131,7 @@ Dialog {
         objectName: "title"
         text: "Pick Time"
         visible: text.length > 0
-        color: theme.selectionColor
+        color: theme.selectionTextColor
         font { pixelSize: 32; family: C.FONT_FAMILY_BOLD }
         elide: Text.ElideRight
     }

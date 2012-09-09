@@ -55,9 +55,9 @@ ButtonStyle {
 
     buttonHeight: screenOrientation == "portrait"? 72 : 56
 
-    textColor: inverted ? "#CDCDCD" : "#505050"
-    pressedTextColor: inverted ? "#ffffff" : "#505050"
-    checkedTextColor: inverted ? "#ffffff" : "#000000"
+    textStyle.textColor: theme.tabButtonTextColor
+    textStyle.pressedTextColor: theme.tabButtonPressedTextColor
+    textStyle.checkedTextColor: theme.tabButtonLatchedTextColor
 
     background: "image://theme/meegotouch-tab-" + screenOrientation + "-bottom" + __invertedString + "-background" + (position ? "-" + position : "") 
 

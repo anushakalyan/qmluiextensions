@@ -42,12 +42,11 @@ import QtQuick 1.1
 import "UIConstants.js" as UI
 
 Style {
+    //Text styling
+     property TextStyle textStyle: TextStyle{}
     // Font
     property string fontFamily: __fontFamily
     property int fontPixelSize: UI.FONT_DEFAULT_SIZE
-
-    // Color
-    property color textColor: !inverted? UI.COLOR_INVERTED_FOREGROUND : UI.COLOR_FOREGROUND
 
     // Background
     property url valueBackground: "image://theme/meegotouch-slider-handle-value"+__invertedString+"-background"

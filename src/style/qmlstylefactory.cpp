@@ -44,8 +44,7 @@
 #include "qmlstylefactory.h"
 #include "qmlstyleengine.h"
 #include "qmlplatformstyle.h"
-#include "qmlwidgetstyle.h"
-
+#include "qmlthemeparams.h"
 #include <QObject>
 
 class QmlStyleFactoryPrivate
@@ -53,9 +52,9 @@ class QmlStyleFactoryPrivate
 public:
     QmlStyleFactoryPrivate() {}
 
-    QmlStyleEngine *engine;
-    QmlPlatformStyle *platformStyle;
-    QmlWidgetStyle *widgetStyle;
+    QmlStyleEngine *mEngine;
+    QmlPlatformStyle *mPlatformStyle;
+    QmlThemeParams *mThemeParams;
 };
 
 QmlStyleFactory::QmlStyleFactory(QObject *parent)
@@ -63,9 +62,9 @@ QmlStyleFactory::QmlStyleFactory(QObject *parent)
       d_ptr(new QmlStyleFactoryPrivate())
 {
     Q_D(QmlStyleFactory);
-    d->engine = new QmlStyleEngine(this);
-    d->platformStyle = new QmlPlatformStyle(d->engine, this);
-    d->widgetStyle = new QmlWidgetStyle(d->engine, this);
+    d->mEngine = new QmlStyleEngine(QLatin1String("default"),QLatin1String("default"),this);
+    d->mPlatformStyle = new QmlPlatformStyle(d->mEngine, this);
+    d->mThemeParams = new QmlThemeParams(d->mEngine, this);
 }
 
 QmlStyleFactory::~QmlStyleFactory()
@@ -75,12 +74,12 @@ QmlStyleFactory::~QmlStyleFactory()
 QObject *QmlStyleFactory::platformStyle() const
 {
     Q_D(const QmlStyleFactory);
-    return d->platformStyle;
+    return d->mPlatformStyle;
 }
 
-QObject *QmlStyleFactory::widgetStyle() const
+QObject *QmlStyleFactory::themeParams() const
 {
     Q_D(const QmlStyleFactory);
-    return d->widgetStyle;
+    return d->mThemeParams;
 }
 

@@ -42,6 +42,9 @@ import QtQuick 1.1
 import "UIConstants.js" as UI
 
 Style {
+    // Styling for the Label
+    property TextStyle textStyle: TextStyle{}
+
     // Font
     property string fontFamily: __fontFamily
     property int fontPixelSize: UI.FONT_DEFAULT_SIZE
@@ -49,12 +52,6 @@ Style {
     property int fontWeight: Font.Bold
     property int checkedFontWeight: Font.Bold
     property int horizontalAlignment: Text.AlignHCenter
-
-    // Text Color
-    property color textColor: inverted ? UI.COLOR_BUTTON_INVERTED_FOREGROUND : UI.COLOR_BUTTON_FOREGROUND
-    property color pressedTextColor: UI.COLOR_BUTTON_SECONDARY_FOREGROUND
-    property color disabledTextColor: UI.COLOR_BUTTON_DISABLED_FOREGROUND
-    property color checkedTextColor: UI.COLOR_BUTTON_INVERTED_FOREGROUND
 
     // Dimensions
     property int buttonWidth: UI.BUTTON_WIDTH

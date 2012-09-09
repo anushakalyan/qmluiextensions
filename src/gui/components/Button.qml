@@ -120,10 +120,10 @@ Item {
         font.weight: checked ? button.platformStyle.checkedFontWeight : button.platformStyle.fontWeight
         font.pixelSize: button.platformStyle.fontPixelSize
         font.capitalization: button.platformStyle.fontCapitalization
-        color: !enabled ? button.platformStyle.disabledTextColor :
-               pressed ? button.platformStyle.pressedTextColor :
-               checked ? button.platformStyle.checkedTextColor :
-                         button.platformStyle.textColor;
+        color: !enabled ? button.platformStyle.textStyle.disabledTextColor :
+               pressed ? button.platformStyle.textStyle.pressedTextColor :
+               checked ? button.platformStyle.textStyle.checkedTextColor :
+                         button.platformStyle.textStyle.textColor;
         text: ""
         visible: text != ""
     }

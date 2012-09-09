@@ -43,11 +43,7 @@ import "UIConstants.js" as UI
 
 Item {
     property alias textFont: textProperties.font
-    property color textColor: UI.COLOR_FOREGROUND
-    property color selectedTextColor: UI.COLOR_INVERTED_FOREGROUND
-    property color selectionColor: theme.selectionColor
-
-    property color promptTextColor: UI.COLOR_SECONDARY_FOREGROUND
+    property TextStyle textStyle: TextStyle{}
 
     property url background: "image://theme/meegotouch-textedit-background"
     property url backgroundSelected: "image://theme/" + theme.colorString + "meegotouch-textedit-background-selected"

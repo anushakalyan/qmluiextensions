@@ -9,12 +9,14 @@ INCLUDEPATH += $$PWD/compatinclude
 win32|mac:!wince*:!win32-msvc:!macx-xcode:CONFIG += debug_and_release build_all
 CONFIG += qt plugin
 greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += qml quick widgets
+    QT += qml quick widgets network
     OTHER_FILES += QmlUiExtensionsPlugin.json
 } else {
-    QT += declarative
+    QT += declarative opengl network
 }
-OTHER_FILES += qmluiextensions.qrc
+RESOURCES += \
+    qmluiextensions.qrc
+
 !win32:!macx: QT += dbus
 
 !win32:!embedded:!mac:!symbian {
@@ -75,6 +77,8 @@ DEFINES += QT_BUILD_COMPONENTS_LIB
 
 QML_FILES = \
         qmldir \
+        style/core/TextStyle.qml \
+        style/core/Style.qml \
         style/default/ApplicationWindowStyle.qml \
         style/default/BusyIndicatorStyle.qml \
         style/default/ButtonStyle.qml \
@@ -88,6 +92,7 @@ QML_FILES = \
         style/default/SelectionDialogStyle.qml \
         style/default/MenuStyle.qml \
         style/default/LabelStyle.qml \
+        style/default/ListDelegateStyle.qml \
         style/default/MenuItemStyle.qml \
         style/default/PageStackWindowStyle.qml \
         style/default/ProgressBarStyle.qml \
@@ -98,7 +103,6 @@ QML_FILES = \
         style/default/TextAreaStyle.qml \
         style/default/TextFieldStyle.qml \
         style/default/TabButtonStyle.qml \
-        style/default/Style.qml \
         style/default/ToolBarStyle.qml \
         style/default/ToolButtonStyle.qml \
         style/default/ToolItemStyle.qml \
@@ -255,4 +259,5 @@ include(shadereffectitem/shadereffectitem.pri)
 include(style/style.pri)
 include(themedaemon/themedaemon.pri)
 include(../qml.pri)
+
 

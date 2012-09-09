@@ -46,7 +46,7 @@ DialogStyle {
     property int titleFontPixelSize: UI.FONT_XLARGE
     property int titleFontCapitalization: Font.MixedCase
     property bool titleFontBold: true
-    property color titleTextColor: "white"
+    property color titleTextColor: theme.dialogTitleBarTextColor
 
     property int contentFieldMinSize: 24
 
@@ -64,5 +64,5 @@ DialogStyle {
 
     property string messageFontFamily: __fontFamily
     property int messageFontPixelSize: UI.FONT_DEFAULT
-    property color messageTextColor: "#ffffff"
+    property color messageTextColor: theme.dialogMessageTextColor
 }
