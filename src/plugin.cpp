@@ -136,6 +136,7 @@ public:
             QObject::connect(style->platformStyle(), SIGNAL(fontParametersChanged()), this, SLOT(resetPlatformStyle()));
             QObject::connect(style->platformStyle(), SIGNAL(layoutParametersChanged()), this, SLOT(resetPlatformStyle()));
             QObject::connect(style->themeParams(), SIGNAL(colorSchemeChanged()), this, SLOT(changeTheme()));
+            QObject::connect(style->themeParams(), SIGNAL(invertedChanged()), this, SLOT(changeTheme()));
         }
     }
 
