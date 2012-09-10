@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -53,11 +53,11 @@ Page {
         ToolIcon {
             id : backIcon;
             visible:backbutton.checked
-            toolIconId: "toolbar-back"; onClicked: pageStack.pop();
+            iconId: "toolbar-back"; onClicked: pageStack.pop();
         }
 
         ButtonRow {
-            widgetStyle: TabButtonStyle { }
+            platformStyle: TabButtonStyle { }
             visible: (tab1.checked || tab2.checked || tab3.checked || tab4.checked)
             TabButton{visible:tab1.checked; text:"tab1"}
             TabButton{visible:tab2.checked; enabled:false; text:"tab2 (disabled)"}
@@ -79,13 +79,13 @@ Page {
 
         ToolIcon {
             id : extraItem;
-            toolIconId: "toolbar-add"
+            iconId: "toolbar-add"
             visible:plusbutton.checked
         }
 
         ToolIcon {
             id : menuItem;
-            toolIconId: "toolbar-view-menu"
+            iconId: "toolbar-view-menu"
             visible:menubutton.checked
         }
     }

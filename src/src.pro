@@ -82,7 +82,6 @@ QML_FILES = \
         style/default/ApplicationWindowStyle.qml \
         style/default/BusyIndicatorStyle.qml \
         style/default/ButtonStyle.qml \
-        style/default/GroupButtonStyle.qml \
         style/default/CheckBoxStyle.qml \
         style/default/ContextMenuStyle.qml \
         style/default/EditBubbleStyle.qml \
@@ -105,7 +104,7 @@ QML_FILES = \
         style/default/TabButtonStyle.qml \
         style/default/ToolBarStyle.qml \
         style/default/ToolButtonStyle.qml \
-        style/default/ToolItemStyle.qml \
+        style/default/ToolIconStyle.qml \
         style/default/SheetStyle.qml \
         style/default/SheetButtonStyle.qml \
         style/default/SheetButtonAccentStyle.qml \
@@ -158,13 +157,11 @@ QML_FILES = \
         gui/components/StatusBar.qml \
         gui/components/TextArea.qml \
         gui/components/TabButton.qml \
-        gui/components/TabBarLayout.qml \
         gui/components/TabGroup.qml \
         gui/components/ToolBar.qml \
         gui/components/ToolBarLayout.js \
         gui/components/ToolBarLayout.qml \
         gui/components/ToolButton.qml \
-        gui/components/ToolItem.qml \
         gui/components/ToolIcon.qml \
         gui/components/ToolButtonRow.qml \
         gui/components/Sheet.qml \

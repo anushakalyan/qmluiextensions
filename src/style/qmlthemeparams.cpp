@@ -250,6 +250,8 @@ QColor QmlThemeParams::windowBackgroundColor() const
 {
     Q_D(const QmlThemeParams);
     QString param = d->mInverted ? "windowbackgroundinverse":"windowbackground";
+    qDebug("param %s",qPrintable(param));
+    qDebug()<<d->mEngine->colorParameter(param);
     return d->mEngine->colorParameter(param);
 }
 

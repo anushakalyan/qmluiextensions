@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -69,7 +69,7 @@ Page {
         anchors.fill: parent
 
         ToolIcon {
-            toolIconId: "toolbar-back"; onClicked: pageStack.pop();
+            iconId: "toolbar-back"; onClicked: pageStack.pop();
             anchors.left: parent.left
             anchors.top: parent.top
         }
@@ -80,27 +80,27 @@ Page {
             ToolIcon {
                 id: playButton
                 anchors.centerIn: parent
-                toolIconId: "toolbar-mediacontrol-play"
+                iconId: "toolbar-mediacontrol-play"
                 onClicked: playbackPage.play();
             }
 
             ToolIcon {
                 id: stopButton
                 anchors.centerIn: parent
-                toolIconId: "toolbar-mediacontrol-stop"
+                iconId: "toolbar-mediacontrol-stop"
                 opacity: 0
                 onClicked: playbackPage.stop();
             }
 
             ToolIcon {
-                toolIconId: "toolbar-mediacontrol-next"
+                iconId: "toolbar-mediacontrol-next"
                 anchors.left: playButton.right
                 anchors.leftMargin: 64
                 anchors.top: parent.top
             }
 
             ToolIcon {
-                toolIconId: "toolbar-mediacontrol-next"
+                iconId: "toolbar-mediacontrol-next"
                 anchors.right: playButton.left
                 anchors.rightMargin: 64
                 anchors.top: parent.top

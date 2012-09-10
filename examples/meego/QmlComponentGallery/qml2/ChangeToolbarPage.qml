@@ -38,105 +38,139 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
-    id: playbackPage
-
-    property bool playing: false
-
-    function play()
-    {
-        playing = true
-    }
-
-    function stop()
-    {
-        playing = false
-    }
+    id: changeToolbarPage
 
     RectButton {
         id: changeToolbarButton
-        title: "Play"
+        title: "Change toolbar"
+        checkable: true
         width: 320
         anchors.centerIn: parent
-        onClicked: if(!playing){ play(); title="Stop" } else { stop(); title= "Play"; }
     }
 
     tools: Item {
-        id: playbackToolbar
+        id: toolbar
+
         anchors.fill: parent
+        clip: true
 
         ToolIcon {
-            toolIconId: "toolbar-back"; onClicked: pageStack.pop();
+            iconId: "toolbar-back"
             anchors.left: parent.left
             anchors.top: parent.top
+
+            onClicked: pageStack.pop()
         }
 
         Item {
-            anchors.fill: parent
+            id: messagingPanel
+            width: 320
+            x: 255
+            height:72
 
             ToolIcon {
-                id: playButton
+                id: newChat
                 anchors.centerIn: parent
-                toolIconId: "toolbar-mediacontrol-play"
-                onClicked: playbackPage.play();
+                iconId: "toolbar-new-chat"
             }
 
             ToolIcon {
-                id: stopButton
-                anchors.centerIn: parent
-                toolIconId: "toolbar-mediacontrol-stop"
-                opacity: 0
-                onClicked: playbackPage.stop();
+                id: newMessageButton
+                anchors.right: newChat.left
+                anchors.rightMargin: 64
+                anchors.top:  parent.top
+                iconId: "toolbar-new-message"
             }
 
             ToolIcon {
-                toolIconId: "toolbar-mediacontrol-next"
-                anchors.left: playButton.right
+                id: shareButton
+                iconId: "toolbar-share"
+                anchors.left: newChat.right
                 anchors.leftMargin: 64
                 anchors.top: parent.top
             }
+        }
+
+        Item {
+            id: searchPanel
+
+            width: 320
+            x: 255
+            height: 72
+
+            opacity: 0
+            y: 50
 
             ToolIcon {
-                toolIconId: "toolbar-mediacontrol-next"
-                anchors.right: playButton.left
+                id: searchButton
+                anchors.centerIn: parent
+                iconId: "toolbar-search"
+            }
+
+            ToolIcon {
+                id: toolsButton
+                anchors.right: searchButton.left
                 anchors.rightMargin: 64
+                anchors.top:  parent.top
+                iconId: "toolbar-tools"
+            }
+
+            ToolIcon {
+                id: sendEmailButton
+                iconId: "toolbar-send-email"
+                anchors.left: searchButton.right
+                anchors.leftMargin: 64
                 anchors.top: parent.top
             }
+        }
+
+        ToolIcon {
+            iconId: "toolbar-view-menu"
+            anchors.right: parent.right
+            anchors.top: parent.top
         }
 
         states: [
             State {
-                name: "playState"
-                when: playbackPage.playing
+                name: "searchPanelState"
+                when: changeToolbarButton.toogled
                 PropertyChanges {
-                    target: playButton
+                    target: messagingPanel
                     opacity: 0
+                    y: -50
                 }
+
                 PropertyChanges {
-                    target: stopButton
+                    target: searchPanel
                     opacity: 1
+                    y: 0
                 }
             },
             State {
-                name: "stopState"
-                when: !playbackPage.playing
+                name: "messagingPanelState"
+                when: !changeToolbarButton.toogled
                 PropertyChanges {
-                    target: playButton
+                    target: messagingPanel
                     opacity: 1
+                    y: 0
                 }
+
                 PropertyChanges {
-                    target: stopButton
+                    target: searchPanel
                     opacity: 0
+                    y: -50
                 }
             }
         ]
 
         transitions: [
             Transition {
-                NumberAnimation { property: "opacity"; duration: 400 }
+                NumberAnimation { property: "opacity"; duration: 200 }
+                NumberAnimation { property: "y"; duration: 200 }
             }
         ]
     }

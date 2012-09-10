@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -65,7 +65,7 @@ Page {
                 id: myDialog
                 title: Item {
                     id: titleField
-                    height: myDialog.widgetStyle.titleBarHeight
+                    height: myDialog.platformStyle.titleBarHeight
                     width: parent.width
                     Image {
                         id: supplement
@@ -113,7 +113,7 @@ Page {
                 }
 
                 buttons: ButtonRow {
-                    widgetStyle: ButtonStyle { }
+                    platformStyle: ButtonStyle { }
                     anchors.horizontalCenter: parent.horizontalCenter
                     Button {id: b1; text: "OK"; onClicked: myDialog.accept()}
                     Button {id: b2; text: "Cancel"; onClicked: myDialog.reject()}
@@ -417,7 +417,7 @@ Page {
             id: tabTools
             ToolIcon {
                 id: toolIcon 
-                toolIconId: "toolbar-back"
+                iconId: "toolbar-back"
                 onClicked: tabGroup.currentTab.depth > 1 ? tabGroup.currentTab.pop() : pageStack.pop()
             }
             ButtonRow {

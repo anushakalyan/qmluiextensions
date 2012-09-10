@@ -5,7 +5,6 @@ BusyIndicator 1.0 BusyIndicator.qml
 BusyIndicatorStyle 1.0 BusyIndicatorStyle.qml
 Button 1.0 Button.qml
 ButtonStyle 1.0 ButtonStyle.qml
-GroupButtonStyle 1.0 GroupButtonStyle.qml
 ButtonColumn 1.0 ButtonColumn.qml
 ButtonRow 1.0 ButtonRow.qml
 CheckBox 1.0 CheckBox.qml
@@ -56,7 +55,6 @@ StatusBar 1.0 StatusBar.qml
 Style 1.0 Style.qml
 Switch 1.0 Switch.qml
 SwitchStyle 1.0 SwitchStyle.qml
-TabBarLayout 1.0 TabBarLayout.qml
 TabButton 1.0 TabButton.qml
 TabButtonStyle 1.0 TabButtonStyle.qml
 TabGroup 1.0 TabGroup.qml
@@ -72,7 +70,6 @@ ToolBarStyle 1.0 ToolBarStyle.qml
 ToolButton 1.0 ToolButton.qml
 ToolButtonRow 1.0 ToolButtonRow.qml
 ToolButtonStyle 1.0 ToolButtonStyle.qml
-ToolItem 1.0 ToolItem.qml
 ToolIcon 1.0 ToolIcon.qml
 ToolItemStyle 1.0 ToolItemStyle.qml
 Tumbler 1.0 Tumbler.qml

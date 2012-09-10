@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 
@@ -49,12 +49,12 @@ Page {
 
     ToolBarLayout {
         id: buttonTools
-        ToolIcon { toolIconId: "toolbar-back"; onClicked: { myMenu.close(); pageStack.pop(); }  }
+        ToolIcon { iconId: "toolbar-back"; onClicked: { myMenu.close(); pageStack.pop(); }  }
         ToolButtonRow {
             ToolButton { text: "ToolButton 1" }
             ToolButton { text: "ToolButton 2" }
         }
-        ToolIcon { toolIconId: "toolbar-view-menu" ; onClicked: myMenu.open(); }
+        ToolIcon { iconId: "toolbar-view-menu" ; onClicked: myMenu.open(); }
     }
 
     Flickable {
@@ -79,7 +79,7 @@ Page {
 
             Button { text: "Set theme.inverted to " + !theme.inverted; onClicked: { theme.inverted = !theme.inverted; console.log("theme.inverted: " + theme.inverted) } }
             Button { text: "Generic"; }
-            Button { text: "Generic forced to inverted style"; widgetStyle: ButtonStyle{ inverted: true } }
+            Button { text: "Generic forced to inverted style"; platformStyle: ButtonStyle{ inverted: true } }
 
             Button { id: disabledButton; text: "Disabled"; enabled: false }
 
@@ -110,7 +110,7 @@ Page {
             CheckBox {
                 width: 400
                 checked: true
-                widgetStyle: CheckBoxStyle { elideMode: Text.ElideRight }
+                platformStyle: CheckBoxStyle { elideMode: Text.ElideRight }
                 text: "CheckBox, with long long long long long text"
             }
 
@@ -126,7 +126,7 @@ Page {
                 Button { iconSource: "image://theme/icon-s-telephony-end-call" }
             }
             ButtonRow {
-                widgetStyle: ButtonStyle { inverted: true }
+                platformStyle: ButtonStyle { inverted: true }
                 Button { text: "Three" }
                 Button { text: "Inverted" }
                 Button { text: "Buttons" }

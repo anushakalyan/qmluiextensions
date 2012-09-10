@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -50,30 +50,30 @@ Page {
     ToolBarLayout {
         id: navigationToolbar1
         visible: false
-        ToolIcon { toolIconId: "toolbar-back"; onClicked: pageStack.pop(); }
-        ToolIcon { toolIconId: ["toolbar-send-email",
+        ToolIcon { iconId: "toolbar-back"; onClicked: pageStack.pop(); }
+        ToolIcon { iconId: ["toolbar-send-email",
                             "toolbar-new-chat",
                             "toolbar-headphones",
                             "toolbar-clock",
                             "toolbar-settings",
                             "toolbar-tag"
                             ][level % 6]}
-        ToolIcon { toolIconId: "toolbar-view-menu";}
+        ToolIcon { iconId: "toolbar-view-menu";}
     }
 
     ToolBarLayout {
         id: navigationToolbar2
         visible: false
-        ToolIcon { toolIconId: "toolbar-back"; onClicked: pageStack.pop(); }
-        ToolIcon { toolIconId: ["toolbar-send-email",
+        ToolIcon { iconId: "toolbar-back"; onClicked: pageStack.pop(); }
+        ToolIcon { iconId: ["toolbar-send-email",
                             "toolbar-headphones",
                             "toolbar-settings",
                             ][level % 3]}
-        ToolIcon { toolIconId: ["toolbar-new-chat",
+        ToolIcon { iconId: ["toolbar-new-chat",
                             "toolbar-clock",
                             "toolbar-tag"
                             ][level % 3]}
-        ToolIcon { toolIconId: "toolbar-view-menu";}
+        ToolIcon { iconId: "toolbar-view-menu";}
     }
 
     tools: (level % 3 == 0) ? navigationToolbar1 : navigationToolbar2

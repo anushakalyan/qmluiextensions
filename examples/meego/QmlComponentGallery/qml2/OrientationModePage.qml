@@ -38,13 +38,74 @@
 **
 ****************************************************************************/
 
-// ToolItem is a component that is used to add actions to toolbars.
-
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
-ToolIcon {
-    Component.onCompleted: {
-	print("Warning: ToolItem is deprecated, use ToolIcon instead")
+
+Page {
+    id: orientationModePage
+    anchors.margins: UiConstants.DefaultMargin
+
+    ListModel {
+        id: pagesModel
+        ListElement {
+            page: "OrientationModePage.qml"
+            title: "Locked in Landscape"
+            index: 1
+        }
+        ListElement {
+            page: "OrientationModePage.qml"
+            title: "Locked in Portrait"
+            index: 2
+        }
+        ListElement {
+            page: "OrientationModePage.qml"
+            title: "Locked in Portrait and Landscape"
+            index: 3
+        }
+
+        ListElement {
+            page: "OrientationModePage.qml"
+            title: "Not locked"
+            index: 4
+        }
+    }
+
+    function handleClick(page, index) {
+        if(index == 1) {
+            pageStack.push(Qt.createComponent(page), {orientationLock: PageOrientation.LockLandscape})
+        } else if(index == 2) {
+            pageStack.push(Qt.createComponent(page), {orientationLock: PageOrientation.LockPortrait})
+        } else if(index == 3){
+            pageStack.push(Qt.createComponent(page), {orientationLock: PageOrientation.LockPrevious})
+        } else if(index == 4){
+            pageStack.push(Qt.createComponent(page))
+        }
+    }
+
+    ListView {
+        anchors.fill: parent
+
+        model: pagesModel
+        delegate: ListDelegate {
+            Image {
+                source: "image://theme/icon-m-common-drilldown-arrow" + (theme.inverted ? "-inverse" : "")
+                anchors.right: parent.right;
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            onClicked: handleClick(page, index)
+        }
+    }
+
+    tools: ToolBarLayout {
+
+        ToolIcon {
+            iconId: "toolbar-back"; onClicked: pageStack.pop();
+        }
+
+        ToolIcon {
+            iconId: "toolbar-view-menu"
+        }
     }
 }

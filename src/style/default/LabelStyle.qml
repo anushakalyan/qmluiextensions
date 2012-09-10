@@ -43,5 +43,5 @@ import "UIConstants.js" as UI
 
 Style {
 
-    property TextStyle textStyle: TextStyle {}
+    property QtObject textStyle: TextStyle {}
 }

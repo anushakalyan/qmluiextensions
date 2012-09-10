@@ -38,62 +38,55 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
-    id: labelsPage
+    id: pageStackWindowPage
+    tools: pageStackWindowTools
     anchors.margins: UiConstants.DefaultMargin
-    tools: commonTools
+
+    ToolBarLayout {
+        id: pageStackWindowTools
+        visible: false
+        ToolIcon { iconId: "toolbar-back"; onClicked: { enableSwipe = true; screen.allowSwipe = enableSwipe; myMenu.close(); pageStack.pop(); } }
+        ToolIcon { iconId: "toolbar-view-menu"; onClicked: { if (myMenu.status == DialogStatus.Closed) { myMenu.open(); enableSwipe = screen.allowSwipe; screen.allowSwipe = true; } else { myMenu.close(); } } }
+    }
 
     Flickable {
-        id: labelFlick
+        id: flickable
+        anchors.fill: parent
         contentWidth: col.width
         contentHeight: col.height
         flickableDirection: Flickable.VerticalFlick
 
-        anchors.fill: parent
         Column {
             id: col
-            Label { text: "Plain label"; platformSelectable: true; }
-            Label { text: "<a href=\"http://www.nokia.com\">Invert</a> label via link"; platformSelectable: false;
-                    onLinkActivated: widgetStyle.inverted = !widgetStyle.inverted; }
-            Label { text: "Bold label"; font.bold: true; platformSelectable: true; }
-            Label { text: "Italic label"; font.italic: true; platformSelectable: true; }
-            Label { text: "Large label"; font.pixelSize: 100;  platformSelectable: true; }
+            spacing: 30
+            width:  flickable.width
 
-            Label {
-                id: coloredLabel
-                text: "Large label with MouseArea"
-                width: parent.width
-                font.pixelSize: 48
-                platformSelectable: true
-                color: Qt.rgba(1.0, 0.5, 0.5, 1.0)
-                wrapMode: Text.WordWrap
-
-                MouseArea {
-                    id: ma
-                    anchors.fill:  parent
-                    onClicked: coloredLabel.color ==  Qt.rgba(1.0, 0.5, 0.5, 1.0) ?
-                                   coloredLabel.color =  Qt.rgba(0.5, 1.0, 0.5, 1.0)
-                                 : coloredLabel.color =  Qt.rgba(1.0, 0.5, 0.5, 1.0)
+            Component.onCompleted: {
+                var count = children.length;
+                for (var i = 0; i < count; i++) {
+                    var item = children[i];
+                    item.anchors.horizontalCenter = item.parent.horizontalCenter;
                 }
+             }
 
-            }
+            Button { text: "Toggle StatusBar"; checkable: true; checked: rootWindow.showStatusBar;  onClicked: { rootWindow.showStatusBar = !rootWindow.showStatusBar; } }
 
-            Label { text: "Red label"; color: "red"; platformSelectable: true; }
-            Label { text: "Elided labels are too long"; font.italic: true; width: 200; elide: Text.ElideRight; platformSelectable: true; }
-            Label { text: "Unselectable plain label <br>" }
-            Label {
-                text: "<b>Wrapping label with a lot of text:</b> The quick brown fox jumps over the lazy dog. \
-                The quick brown fox jumps over the lazy dog. <br>The quick brown fox jumps over the lazy dog. \
-                The quick brown fox jumps over the lazy dog."
-                font.pixelSize: 30
-                wrapMode: Text.Wrap
-                width: labelsPage.width
-                platformSelectable: true            
-            }
+            Button { text: "Alternate background image"; checkable: true; checked: rootWindow.platformStyle==customStyle; onClicked: { if (rootWindow.platformStyle==defaultStyle) rootWindow.platformStyle=customStyle; else rootWindow.platformStyle=defaultStyle; } }
 
-        }
+            Button { text: "Toggle Rounded corners"; checkable:true; checked: rootWindow.platformStyle.cornersVisible; onClicked: { rootWindow.platformStyle.cornersVisible = !rootWindow.platformStyle.cornersVisible; } }
+
+            Button { text: "Toggle ToolBar"; checkable: true; checked: rootWindow.showToolBar; onClicked: { rootWindow.showToolBar = !rootWindow.showToolBar } }
+
+            Button { text: "Toggle Swipe"; checkable: true; checked: enableSwipe; onClicked: { enableSwipe = !enableSwipe; screen.allowSwipe = enableSwipe } }
+          }
+
     }
+    ScrollDecorator {
+        flickableItem: flickable
+    }
+
 }

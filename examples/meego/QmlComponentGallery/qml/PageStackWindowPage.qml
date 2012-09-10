@@ -49,8 +49,8 @@ Page {
     ToolBarLayout {
         id: pageStackWindowTools
         visible: false
-        ToolIcon { iconId: "toolbar-back"; onClicked: { enableSwipe = true; screen.allowSwipe = enableSwipe; myMenu.close(); pageStack.pop(); } }
-        ToolIcon { iconId: "toolbar-view-menu"; onClicked: { if (myMenu.status == DialogStatus.Closed) { myMenu.open(); enableSwipe = screen.allowSwipe; screen.allowSwipe = true; } else { myMenu.close(); } } }
+        ToolIcon { toolIconId: "toolbar-back"; onClicked: { enableSwipe = true; screen.allowSwipe = enableSwipe; myMenu.close(); pageStack.pop(); } }
+        ToolIcon { toolIconId: "toolbar-view-menu"; onClicked: { if (myMenu.status == DialogStatus.Closed) { myMenu.open(); enableSwipe = screen.allowSwipe; screen.allowSwipe = true; } else { myMenu.close(); } } }
     }
 
     Flickable {
@@ -75,9 +75,9 @@ Page {
 
             Button { text: "Toggle StatusBar"; checkable: true; checked: rootWindow.showStatusBar;  onClicked: { rootWindow.showStatusBar = !rootWindow.showStatusBar; } }
 
-            Button { text: "Alternate background image"; checkable: true; checked: rootWindow.platformStyle==customStyle; onClicked: { if (rootWindow.platformStyle==defaultStyle) rootWindow.platformStyle=customStyle; else rootWindow.platformStyle=defaultStyle; } }
+            Button { text: "Alternate background image"; checkable: true; checked: rootWindow.widgetStyle==customStyle; onClicked: { if (rootWindow.widgetStyle==defaultStyle) rootWindow.widgetStyle=customStyle; else rootWindow.widgetStyle=defaultStyle; } }
 
-            Button { text: "Toggle Rounded corners"; checkable:true; checked: rootWindow.platformStyle.cornersVisible; onClicked: { rootWindow.platformStyle.cornersVisible = !rootWindow.platformStyle.cornersVisible; } }
+            Button { text: "Toggle Rounded corners"; checkable:true; checked: rootWindow.widgetStyle.cornersVisible; onClicked: { rootWindow.widgetStyle.cornersVisible = !rootWindow.widgetStyle.cornersVisible; } }
 
             Button { text: "Toggle ToolBar"; checkable: true; checked: rootWindow.showToolBar; onClicked: { rootWindow.showToolBar = !rootWindow.showToolBar } }
 

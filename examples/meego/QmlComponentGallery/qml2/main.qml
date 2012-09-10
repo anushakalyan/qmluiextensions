@@ -38,13 +38,13 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 PageStackWindow {
     id: rootWindow
 
-    widgetStyle: defaultStyle;
+    platformStyle: defaultStyle;
 
     property bool enableSwipe: true
 
@@ -62,8 +62,8 @@ PageStackWindow {
     ToolBarLayout {
         id: commonTools
         visible: false
-        ToolIcon { toolIconId: "toolbar-back"; onClicked: { myMenu.close(); pageStack.pop(); } }
-        ToolIcon { toolIconId: "toolbar-view-menu"; onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close() }
+        ToolIcon { iconId: "toolbar-back"; onClicked: { myMenu.close(); pageStack.pop(); } }
+        ToolIcon { iconId: "toolbar-view-menu"; onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close() }
     }
 
     Menu {

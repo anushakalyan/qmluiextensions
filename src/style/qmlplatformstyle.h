@@ -53,7 +53,7 @@ class QmlPlatformStyle : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString currentStyle READ currentStyle WRITE setCurrentStyle NOTIFY currentStyleChanged FINAL)
-    Q_PROPERTY(QString fontFamilyRegular READ fontFamilyRegular CONSTANT FINAL)
+    Q_PROPERTY(QString fontFamily READ fontFamily CONSTANT FINAL)
     Q_PROPERTY(int fontSizeLarge READ fontSizeLarge CONSTANT FINAL)
     Q_PROPERTY(int fontSizeMedium READ fontSizeMedium CONSTANT FINAL)
     Q_PROPERTY(int fontSizeSmall READ fontSizeSmall CONSTANT FINAL)
@@ -86,7 +86,7 @@ public:
     explicit QmlPlatformStyle(QmlStyleEngine *engine, QObject *parent = 0);
     ~QmlPlatformStyle();
 
-    QString fontFamilyRegular() const;
+    QString fontFamily() const;
     QString currentStyle() const;
     void setCurrentStyle(const QString &newstyle);
 

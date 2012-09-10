@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -191,11 +191,11 @@ Page {
     tools: ToolBarLayout {
 
         ToolIcon {
-            toolIconId: "toolbar-back"; onClicked: pageStack.pop();
+            iconId: "toolbar-back"; onClicked: pageStack.pop();
         }
 
         ToolIcon {
-            toolIconId: "toolbar-view-menu"
+            iconId: "toolbar-view-menu"
         }
     }
 }

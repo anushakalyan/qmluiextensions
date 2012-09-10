@@ -39,9 +39,8 @@
 ****************************************************************************/
 
 import QtQuick 1.1
-import "UIConstants.js" as UI
 
-ButtonStyle {
-    // This style is deprecated and will be removed
-    Component.onCompleted: print("GroupButtonStyle has been deprecated, please use ButtonStyle instead.")
+Style {
+    // Background
+    property url pressedBackground: "image://theme/meegotouch-button-navigationbar-button"+theme.inverted+"-background-pressed"
 }

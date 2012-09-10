@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -47,7 +47,7 @@ Page {
     tools:
         ToolBarLayout {
         ToolIcon {
-            toolIconId: "toolbar-back"
+            iconId: "toolbar-back"
             anchors.left: parent.left
             anchors.top: parent.top
 
@@ -55,7 +55,7 @@ Page {
         }
 
         ToolIcon {
-            toolIconId: "toolbar-view-menu"; onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
+            iconId: "toolbar-view-menu"; onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
             anchors.right: parent==undefined ? undefined : parent.right
         }
     }

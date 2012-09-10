@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -51,14 +51,14 @@ Page {
       
         ToolIcon { 
           id: toolIcon 
-          toolIconId: "toolbar-back"
+          iconId: "toolbar-back" 
           onClicked: pageStack.pop()
         }
                  
         ButtonRow {
           anchors {left: toolIcon.right; right: parent.right}
             
-            widgetStyle: TabButtonStyle { }
+            platformStyle: TabButtonStyle { }
             TabButton {
                 text: "Tab1"
                 tab: tab1

@@ -101,11 +101,11 @@ Page {
     tools: ToolBarLayout {
 
         ToolIcon {
-            iconId: "toolbar-back"; onClicked: pageStack.pop();
+            toolIconId: "toolbar-back"; onClicked: pageStack.pop();
         }
 
         ToolIcon {
-            iconId: "toolbar-view-menu"
+            toolIconId: "toolbar-view-menu"
         }
     }
 }

@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -68,7 +68,7 @@ Page {
 
                 BusyIndicator {
                     id: indicator1
-                    widgetStyle: BusyIndicatorStyle { size: "small" }
+                    platformStyle: BusyIndicatorStyle { size: "small" }
                 }
                 BusyIndicator {
                     id: indicator2
@@ -76,7 +76,7 @@ Page {
                 }
                 BusyIndicator {
                     id: indicator3
-                    widgetStyle: BusyIndicatorStyle { size: "large" }
+                    platformStyle: BusyIndicatorStyle { size: "large" }
                     running:  indicator1.running
                 }
             }
@@ -165,7 +165,7 @@ Page {
                 Switch {
                     id: switch1
                     checked: false
-                    widgetStyle: SwitchStyle {
+                    platformStyle: SwitchStyle {
                         inverted: true
                     }
                 }

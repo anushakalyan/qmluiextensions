@@ -190,10 +190,10 @@ void QmlStyleEnginePrivate::loadParameters(const QString &filePath, ParameterTyp
         // - RANGE: the range of "primary text height" in millimeters
         // - ATAN_FACTOR: controls the "steepness" of the arctan curve
         MDeclarativeScreen *screen = MDeclarativeScreen::instance();
-        qreal inchSize = qSqrt(screen->height() * screen->height()
-                               + screen->width() * screen->width()) / screen->dpi();
+        qreal inchSize = qSqrt(screen->platformHeight() * screen->platformHeight()
+                               + screen->platformWidth() * screen->platformWidth()) / screen->dpi();
         qreal pthMm = MID_VALUE + RANGE * qAtan(ATAN_FACTOR * (inchSize - MID_POINT)) / M_PI;
-        unit = 0.25 * pthMm * screen->dpi() / 25.4;
+        unit = 0.5 * pthMm * screen->dpi() / 25.4;
     }
 
     QFile file(filePath);

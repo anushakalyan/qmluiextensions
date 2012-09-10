@@ -54,12 +54,6 @@ DialogStyle {
     property int rightMargin: __portrait ? 11 : 160
 
     property alias itemFont: itemText.font
-    property int fontXLarge: 32
-    property int fontLarge: 28
-    property int fontDefault: 24
-    property int fontSmall: 20
-    property int fontXSmall: 18
-    property int fontXXSmall: 16
 
     property color colorForeground: theme.selectionDialogForegroundColor
     property color colorSecondaryForeground: theme.selectionDialogSecondaryForegroundColor
@@ -89,7 +83,7 @@ DialogStyle {
 
     Text {
         id: titleText
-        font.family:  platformStyle.fontFamilyRegular
+        font.family:  platformStyle.fontFamily
         font.pixelSize: platformStyle.fontSizeLarge
         font.capitalization: Font.MixedCase
         font.bold: false
@@ -97,7 +91,7 @@ DialogStyle {
 
     Text {
         id: itemText
-        font.family: platformStyle.fontFamilyRegular
+        font.family: platformStyle.fontFamily
         font.pixelSize: platformStyle.fontSizeSmall
         font.capitalization: Font.MixedCase
         font.bold: true

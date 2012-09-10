@@ -38,102 +38,76 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
-    id: orientationPage
+    id: staticpage1
     anchors.margins: UiConstants.DefaultMargin
 
-    Item {
-        id: landscapePanel
-        anchors.centerIn: parent
-
-        Row {
-            anchors.centerIn: parent
-            spacing: 16
-            Button {
-                text: "First Landscape Button"
+    Component {
+        id: staticpage2
+        Page {
+            tools: ToolBarLayout {
+                       id: staticToolbar1
+                       ToolIcon { iconId: "toolbar-back"; onClicked: pageStack.pop(); }
+                       ToolIcon { iconId: "toolbar-mediacontrol-backwards" }
+                       ToolIcon { iconId: "toolbar-mediacontrol-pause" }
+                       ToolIcon { iconId: "toolbar-mediacontrol-forward" }
+                       ToolIcon { iconId: "toolbar-view-menu" }
             }
 
-            Button {
-                text: "Second Landscape Button"
+            Column {
+                spacing: 30
+                Text { text: "This is static page two."; font.pixelSize: 30 }
+                Button {
+                    text: "Go to page three"
+                    onClicked: pageStack.push(staticpage3)
+                }
             }
         }
     }
 
-    Item {
-        id: portraitPanel
-        visible: false
-        anchors.centerIn: parent
+    Component {
+        id: staticpage3
+        Page {
+            tools: ToolBarLayout {
+                       id: staticToolbar1
+                       ToolIcon { iconId: "toolbar-back"; onClicked: pageStack.pop(); }
+                       ToolIcon { iconId: "toolbar-alphabetic-order" }
+                       ToolIcon { iconId: "toolbar-view-menu" }
+            }
 
-        Button {
-            anchors.centerIn: parent
-            text: "Portrait Button"
+            Column {
+                spacing: 30
+                Text { text: "This is static page three."; font.pixelSize: 30 }
+                Text { text: "You can either go back now, or..."; font.pixelSize: 30  }
+                Button {
+                    text: "Go to directly to page one, popping page two from stack"
+                    onClicked: pageStack.pop(staticpage1)
+                }
+            }
         }
     }
-
-    states: [
-        State {
-            name: "inLandscape"
-            when: !rootWindow.inPortrait
-            PropertyChanges {
-                target: landscapePanel
-                visible: true
-            }
-            PropertyChanges {
-                target: portraitPanel
-                visible: false
-            }
-        },
-        State {
-            name: "inPortrait"
-            when: rootWindow.inPortrait
-            PropertyChanges {
-                target: landscapePanel
-                visible: false
-            }
-            PropertyChanges {
-                target: portraitPanel
-                visible: true
-            }
-        }
-    ]
-
 
     tools: ToolBarLayout {
+               id: staticToolbar1
+               ToolIcon { iconId: "toolbar-back"; onClicked: pageStack.pop(); }
+               ToolIcon { iconId: "toolbar-send-email" }
+               ToolIcon { iconId: "toolbar-new-chat" }
+               ToolIcon { iconId: "toolbar-view-menu" }
+    }
 
-        ToolIcon {
-            toolIconId: "toolbar-back"; onClicked: pageStack.pop();
+    Column {
+        spacing: 30
+        Text { text: "This is static page one."; font.pixelSize: 30 }
+        Button {
+            text: "Go to page two"
+            onClicked: pageStack.push(staticpage2)
         }
-
-        Text {
-            id: orientationText
-            text: "Landscape"
-            font.pixelSize: 24
+        Button {
+            text: "Go to page three, leaving page two in the stack"
+            onClicked: pageStack.push([staticpage2, staticpage3])
         }
-
-        ToolIcon {
-            toolIconId: "toolbar-view-menu"
-        }
-
-        states: [
-            State {
-                name: "inLandscape"
-                when: !rootWindow.inPortrait
-                PropertyChanges {
-                    target: orientationText
-                    text: "Landscape"
-                }
-            },
-            State {
-                name: "inPortrait"
-                when: rootWindow.inPortrait
-                PropertyChanges {
-                    target: orientationText
-                    text: "Portrait"
-                }
-            }
-        ]
     }
 }

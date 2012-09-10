@@ -38,62 +38,111 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
-    id: labelsPage
+    id: visibilityPage
     anchors.margins: UiConstants.DefaultMargin
     tools: commonTools
 
+    function updateViewMode() {
+        if (platformWindow.viewMode == WindowState.Fullsize) {
+            l1.item.color = "green";
+        } else {
+            l1.item.color = "red";
+        }
+
+        l1.item.text = platformWindow.viewModeString;
+    }
+
+    function updateVisible() {
+        if (platformWindow.visible) {
+            l2.item.color = "green";
+            l2.item.text = "visible";
+        } else {
+            l2.item.color = "red";
+            l2.item.text = "invisible";
+        }
+    }
+
+    function updateActive() {
+        if (platformWindow.active) {
+            l3.item.color = "green";
+            l3.item.text = "active";
+        } else {
+            l3.item.color = "red";
+            l3.item.text = "inactive";
+        }
+    }
+
+    Connections {
+        target: platformWindow
+
+        onViewModeChanged: updateViewMode()
+        onVisibleChanged: updateVisible()
+        onActiveChanged: updateActive()
+    }
+
+    Component {
+        id: textBox
+
+        Rectangle {
+            property alias text: textItem.text
+
+            width: 200; height: 150
+            color: "yellow"
+            border.color: "black"
+            border.width: 5
+            radius: 10
+
+            Text {
+                id: textItem
+                anchors.centerIn: parent
+                font.pointSize: 32
+                color: "black"
+            }
+        }
+    }
+
     Flickable {
-        id: labelFlick
+        id: flickable
+        anchors.fill: parent
         contentWidth: col.width
         contentHeight: col.height
         flickableDirection: Flickable.VerticalFlick
 
-        anchors.fill: parent
         Column {
             id: col
-            Label { text: "Plain label"; platformSelectable: true; }
-            Label { text: "<a href=\"http://www.nokia.com\">Invert</a> label via link"; platformSelectable: false;
-                    onLinkActivated: widgetStyle.inverted = !widgetStyle.inverted; }
-            Label { text: "Bold label"; font.bold: true; platformSelectable: true; }
-            Label { text: "Italic label"; font.italic: true; platformSelectable: true; }
-            Label { text: "Large label"; font.pixelSize: 100;  platformSelectable: true; }
+            spacing: 10
+            width: flickable.width
 
-            Label {
-                id: coloredLabel
-                text: "Large label with MouseArea"
-                width: parent.width
-                font.pixelSize: 48
-                platformSelectable: true
-                color: Qt.rgba(1.0, 0.5, 0.5, 1.0)
-                wrapMode: Text.WordWrap
+            Loader {
+                id: l1
+                sourceComponent: textBox
+            }
 
-                MouseArea {
-                    id: ma
-                    anchors.fill:  parent
-                    onClicked: coloredLabel.color ==  Qt.rgba(1.0, 0.5, 0.5, 1.0) ?
-                                   coloredLabel.color =  Qt.rgba(0.5, 1.0, 0.5, 1.0)
-                                 : coloredLabel.color =  Qt.rgba(1.0, 0.5, 0.5, 1.0)
+            Loader {
+                id: l2
+                sourceComponent: textBox
+            }
+
+            Loader {
+                id: l3
+                sourceComponent: textBox
+            }
+
+            Component.onCompleted: {
+                updateViewMode();
+                updateVisible();
+                updateActive();
+
+                var count = children.length;
+                for (var i = 0; i < count; i++) {
+                    var item = children[i];
+                    item.anchors.horizontalCenter = item.parent.horizontalCenter;
                 }
-
             }
-
-            Label { text: "Red label"; color: "red"; platformSelectable: true; }
-            Label { text: "Elided labels are too long"; font.italic: true; width: 200; elide: Text.ElideRight; platformSelectable: true; }
-            Label { text: "Unselectable plain label <br>" }
-            Label {
-                text: "<b>Wrapping label with a lot of text:</b> The quick brown fox jumps over the lazy dog. \
-                The quick brown fox jumps over the lazy dog. <br>The quick brown fox jumps over the lazy dog. \
-                The quick brown fox jumps over the lazy dog."
-                font.pixelSize: 30
-                wrapMode: Text.Wrap
-                width: labelsPage.width
-                platformSelectable: true            
-            }
-
         }
     }
 }

@@ -59,7 +59,7 @@ Page {
         clip: true
 
         ToolIcon {
-            iconId: "toolbar-back"
+            toolIconId: "toolbar-back"
             anchors.left: parent.left
             anchors.top: parent.top
 
@@ -75,7 +75,7 @@ Page {
             ToolIcon {
                 id: newChat
                 anchors.centerIn: parent
-                iconId: "toolbar-new-chat"
+                toolIconId: "toolbar-new-chat"
             }
 
             ToolIcon {
@@ -83,12 +83,12 @@ Page {
                 anchors.right: newChat.left
                 anchors.rightMargin: 64
                 anchors.top:  parent.top
-                iconId: "toolbar-new-message"
+                toolIconId: "toolbar-new-message"
             }
 
             ToolIcon {
                 id: shareButton
-                iconId: "toolbar-share"
+                toolIconId: "toolbar-share"
                 anchors.left: newChat.right
                 anchors.leftMargin: 64
                 anchors.top: parent.top
@@ -108,7 +108,7 @@ Page {
             ToolIcon {
                 id: searchButton
                 anchors.centerIn: parent
-                iconId: "toolbar-search"
+                toolIconId: "toolbar-search"
             }
 
             ToolIcon {
@@ -116,12 +116,12 @@ Page {
                 anchors.right: searchButton.left
                 anchors.rightMargin: 64
                 anchors.top:  parent.top
-                iconId: "toolbar-tools"
+                toolIconId: "toolbar-tools"
             }
 
             ToolIcon {
                 id: sendEmailButton
-                iconId: "toolbar-send-email"
+                toolIconId: "toolbar-send-email"
                 anchors.left: searchButton.right
                 anchors.leftMargin: 64
                 anchors.top: parent.top
@@ -129,7 +129,7 @@ Page {
         }
 
         ToolIcon {
-            iconId: "toolbar-view-menu"
+            toolIconId: "toolbar-view-menu"
             anchors.right: parent.right
             anchors.top: parent.top
         }

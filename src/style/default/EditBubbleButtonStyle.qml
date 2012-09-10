@@ -45,14 +45,13 @@ Style {
 
     // Text and font
     // platformStyle API
-    property TextStyle tStyle: TextStyle{
+    property QtObject tStyle: TextStyle{
         textColor: theme.dialogTitleTextColor
         fontWeight: Font.Normal
         property int textStyle: Text.Sunken
     }
 
     // Dimensions
-    property int buttonWidth: 40 // DEPRECATED
     property int buttonPaddingLeft: 8
     property int buttonPaddingRight: 8
     property int buttonHeight: 56

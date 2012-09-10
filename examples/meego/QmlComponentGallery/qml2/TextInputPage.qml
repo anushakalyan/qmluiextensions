@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -131,7 +131,7 @@ Page {
                             platformSipAttributes: SipAttributes { actionKeyHighlighted: true }
 
                             placeholderText: "Single-line field with button to clear"
-                            widgetStyle: TextFieldStyle { paddingRight: clearButton.width }
+                            platformStyle: TextFieldStyle { paddingRight: clearButton.width }
                             Image {
                                 id: clearButton
                                 anchors.right: parent.right
@@ -447,7 +447,7 @@ Page {
             id: tabTools
             ToolIcon {
                 id: toolIcon 
-                toolIconId: "toolbar-back"
+                iconId: "toolbar-back"
                 onClicked: tabGroup.currentTab.depth > 1 ? tabGroup.currentTab.pop() : pageStack.pop()
             }
             ButtonRow {

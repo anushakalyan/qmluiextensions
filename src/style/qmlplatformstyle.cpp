@@ -68,10 +68,10 @@ QmlPlatformStyle::~QmlPlatformStyle()
 {
 }
 
-QString QmlPlatformStyle::fontFamilyRegular() const
+QString QmlPlatformStyle::fontFamily() const
 {
     Q_D(const QmlPlatformStyle);
-    qDebug("fontFamilyRegular queried %s",qPrintable(d->engine->fontFamilyParameter(QLatin1String("font-family-regular"))));
+    qDebug("fontFamily queried %s",qPrintable(d->engine->fontFamilyParameter(QLatin1String("font-family-regular"))));
     return d->engine->fontFamilyParameter(QLatin1String("font-family-regular"));
 }
 

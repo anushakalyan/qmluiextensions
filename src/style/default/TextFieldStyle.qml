@@ -53,8 +53,6 @@ Item {
 
     property real paddingLeft: UI.PADDING_XLARGE
     property real paddingRight: UI.PADDING_XLARGE
-    property real paddingTop // DEPRECATED
-    property real paddingBottom // DEPRECATED
 
     property real baselineOffset: 2
     property real defaultWidth: 250
@@ -63,7 +61,7 @@ Item {
 
     Text {
         id: textProperties
-        font.family: platformStyle.fontFamilyRegular
+        font.family: platformStyle.fontFamily
         font.pixelSize: platformStyle.fontSizeMedium
         visible: false
     }

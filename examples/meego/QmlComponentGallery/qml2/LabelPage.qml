@@ -38,7 +38,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QmlUiExtensions 1.0
 
 Page {
@@ -57,7 +57,7 @@ Page {
             id: col
             Label { text: "Plain label"; platformSelectable: true; }
             Label { text: "<a href=\"http://www.nokia.com\">Invert</a> label via link"; platformSelectable: false;
-                    onLinkActivated: widgetStyle.inverted = !widgetStyle.inverted; }
+                    onLinkActivated: platformStyle.inverted = !platformStyle.inverted; }
             Label { text: "Bold label"; font.bold: true; platformSelectable: true; }
             Label { text: "Italic label"; font.italic: true; platformSelectable: true; }
             Label { text: "Large label"; font.pixelSize: 100;  platformSelectable: true; }
