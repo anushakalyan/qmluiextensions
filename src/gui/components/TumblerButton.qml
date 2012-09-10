@@ -75,7 +75,7 @@ Item {
      */
     property alias pressed: mouse.pressed
 
-    property QtObject style: TumblerButtonStyle{}
+    property QtObject widgetStyle: TumblerButtonStyle{}
 
     /*
      * Event: clicked
@@ -91,8 +91,8 @@ Item {
             left: UI.CORNER_MARGINS; right: UI.CORNER_MARGINS }
         anchors.fill: parent
         source: mouse.pressed ?
-                tumblerbutton.style.pressedBackground : tumblerbutton.enabled ?
-                    tumblerbutton.style.background : tumblerbutton.style.disabledBackground;
+                tumblerbutton.widgetStyle.pressedBackground : tumblerbutton.enabled ?
+                    tumblerbutton.widgetStyle.background : tumblerbutton.widgetStyle.disabledBackground;
     }
 
     MouseArea {
@@ -116,7 +116,7 @@ Item {
         height: sourceSize.height
         width: sourceSize.width
         source: "image://theme/meegotouch-combobox-indicator" +
-                (tumblerbutton.style.inverted ? "-inverted" : "") +
+                (tumblerbutton.widgetStyle.inverted ? "-inverted" : "") +
                 (tumblerbutton.enabled ? "" : "-disabled") +
                 (mouse.pressed ? "-pressed" : "")
     }
@@ -127,13 +127,13 @@ Item {
         anchors { left: parent.left; right: icon.left;
             leftMargin: UI.INDENT_DEFAULT; rightMargin: UI.INDENT_DEFAULT;
             verticalCenter: parent.verticalCenter }
-        font { family: platformStyle.fontFamily; pixelSize: platformStyle.fontPixelSize;
-            bold: UI.FONT_BOLD_BUTTON; capitalization: tumblerbutton.style.fontCapitalization }
+        font { family: tumblerbutton.widgetStyle.textStyle.fontFamily; pixelSize: tumblerbutton.widgetStyle.textStyle.fontPixelSize;
+            bold: UI.FONT_BOLD_BUTTON; capitalization: tumblerbutton.widgetStyle.fontCapitalization }
         text: tumblerbutton.text
         color: (mouse.pressed) ? 
-            tumblerbutton.style.pressedTextColor :
+            tumblerbutton.widgetStyle.textStyle.pressedTextColor :
                 (tumblerbutton.enabled) ?
-                    tumblerbutton.style.textColor : tumblerbutton.style.disabledTextColor ;
+                    tumblerbutton.widgetStyle.textStyle.textColor : tumblerbutton.widgetStyle.textStyle.disabledTextColor ;
         horizontalAlignment: Text.AlignLeft
         elide: Text.ElideRight
     }

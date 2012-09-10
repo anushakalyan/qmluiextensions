@@ -43,8 +43,6 @@ import QmlUiExtensions 1.0
 import "constants.js" as UI
 
 ButtonStyle {
-    property TextStyle textStyle: TextStyle{}
-
     // Background
     background: "image://theme/meegotouch-button" + __invertedString + "-background"
     pressedBackground: "image://theme/" + __colorString + "meegotouch-button" + __invertedString + "-background-pressed"
