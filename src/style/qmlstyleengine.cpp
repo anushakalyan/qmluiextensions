@@ -147,7 +147,7 @@ bool QmlStyleEnginePrivate::updateLayoutParameters()
             type = ParameterType_Unit;
             qDebug("no specification found for current dispaly config, using fallback params");
             if (!mUseDefaultFallBackParams) {
-                layoutFile = ":/params/"+mStyleName+"/layouts/" + newDisplayConfig +"fallback.params";
+                layoutFile = ":/params/"+mStyleName+"/layouts/fallback.params";
                 qDebug("second try with layout%s",qPrintable(layoutFile));
                 if (!QFile::exists(layoutFile)) {
                     qDebug("no fallback params found for current style, using default style fallback params");
@@ -231,7 +231,10 @@ void QmlStyleEnginePrivate::loadParameters(const QString &filePath, ParameterTyp
                     if (ok)
                         intVal = temp;
                 }
-                layoutParameters.insert(line.left(colonId).trimmed(), intVal);
+                QString trimmedvalue = line.left(colonId).trimmed();
+                qDebug()<<intVal;
+                qDebug("value:%s",qPrintable(trimmedvalue));
+                layoutParameters.insert(trimmedvalue, intVal);
             }
         }
         file.close();

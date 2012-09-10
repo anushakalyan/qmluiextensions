@@ -48,7 +48,6 @@
 #include <qdeclarative.h>
 #endif
 #include <QtGui/qcolor.h>
-#include "../core/qmluiextensionsnamespace.h"
 class QmlThemeParamsPrivate;
 class QmlStyleEngine;
 QT_FORWARD_DECLARE_CLASS(QString)

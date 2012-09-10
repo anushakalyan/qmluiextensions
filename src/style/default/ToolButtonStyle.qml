@@ -46,9 +46,8 @@ ButtonStyle {
     buttonHeight: 42
     
     // Font
-    fontPixelSize: 22
-    fontCapitalization: Font.MixedCase
-    fontWeight: Font.Bold
+    textStyle.fontPixelSize: platformStyle.fontSizeMedium
+
     horizontalAlignment: Text.AlignHCenter
 
     // Background

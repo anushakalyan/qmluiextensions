@@ -42,8 +42,8 @@ import QtQuick 1.1
 import "UIConstants.js" as UI
 
 DialogStyle {
-    property string titleFontFamily: __fontFamily
-    property int titleFontPixelSize: UI.FONT_XLARGE
+    property string titleFontFamily: platformStyle.fontFamilyRegular
+    property int titleFontPixelSize: platformStyle.fontSizeLarge
     property int titleFontCapitalization: Font.MixedCase
     property bool titleFontBold: true
     property color titleTextColor: theme.dialogTitleBarTextColor
@@ -62,7 +62,7 @@ DialogStyle {
     rightMargin: 33
     titleElideMode: Text.ElideNone
 
-    property string messageFontFamily: __fontFamily
-    property int messageFontPixelSize: UI.FONT_DEFAULT
+    property string messageFontFamily: platformStyle.fontFamilyRegular
+    property int messageFontPixelSize: platformStyle.fontSizeSmall
     property color messageTextColor: theme.dialogMessageTextColor
 }

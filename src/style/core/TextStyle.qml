@@ -51,6 +51,10 @@ QtObject {
     property color selectedTextColor: theme.selectedTextColor
     property color selectionTextColor: theme.selectionTextColor
     property color promptTextColor: theme.promptTextColor
+    property string fontFamily: platformStyle.fontFamilyRegular
+    property int fontPixelSize: platformStyle.fontSizeMedium
+    property int fontCapitalization: Font.MixedCase
+    property int fontWeight: Font.Bold
 }
 
 

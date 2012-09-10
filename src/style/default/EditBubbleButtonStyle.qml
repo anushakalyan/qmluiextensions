@@ -42,16 +42,12 @@ import QtQuick 1.1
 import "UIConstants.js" as UI
 
 Style {
-    // Font
-    property string fontFamily: __fontFamily
-    property int fontPixelSize: UI.FONT_DEFAULT_SIZE
-    property int fontCapitalization: Font.MixedCase
-    property int fontWeight: Font.Normal
 
-    // Text
+    // Text and font
     // platformStyle API
     property TextStyle tStyle: TextStyle{
         textColor: theme.dialogTitleTextColor
+        fontWeight: Font.Normal
         property int textStyle: Text.Sunken
     }
 

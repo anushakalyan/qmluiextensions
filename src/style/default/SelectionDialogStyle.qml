@@ -89,16 +89,16 @@ DialogStyle {
 
     Text {
         id: titleText
-        font.family: __fontFamily
-        font.pixelSize: UI.FONT_XLARGE
+        font.family:  platformStyle.fontFamilyRegular
+        font.pixelSize: platformStyle.fontSizeLarge
         font.capitalization: Font.MixedCase
         font.bold: false
     }
 
     Text {
         id: itemText
-        font.family: __fontFamily
-        font.pixelSize: UI.FONT_DEFAULT_SIZE
+        font.family: platformStyle.fontFamilyRegular
+        font.pixelSize: platformStyle.fontSizeSmall
         font.capitalization: Font.MixedCase
         font.bold: true
     }

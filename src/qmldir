@@ -64,6 +64,7 @@ TextArea 1.0 TextArea.qml
 TextAreaStyle 1.0 TextAreaStyle.qml
 TextField 1.0 TextField.qml
 TextFieldStyle 1.0 TextFieldStyle.qml
+TextStyle 1.0 TextStyle.qml
 TimePickerDialog 1.0 TimePickerDialog.qml
 ToolBar 1.0 ToolBar.qml
 ToolBarLayout 1.0 ToolBarLayout.qml
@@ -81,6 +82,7 @@ TumblerDialog 1.0 TumblerDialog.qml
 Window 1.0 Window.qml
 InfoBanner 1.0 InfoBanner.qml
 ListDelegate 1.0 ListDelegate.qml
+ListDelegateStyle 1.0 ListDelegateStyle.qml
 MoreIndicator 1.0 MoreIndicator.qml
 NetPromoterScore 1.0 NetPromoterScore.qml
 PageIndicator 1.0 PageIndicator.qml

@@ -71,18 +71,21 @@ QmlPlatformStyle::~QmlPlatformStyle()
 QString QmlPlatformStyle::fontFamilyRegular() const
 {
     Q_D(const QmlPlatformStyle);
+    qDebug("fontFamilyRegular queried %s",qPrintable(d->engine->fontFamilyParameter(QLatin1String("font-family-regular"))));
     return d->engine->fontFamilyParameter(QLatin1String("font-family-regular"));
 }
 
 int QmlPlatformStyle::fontSizeLarge() const
 {
     Q_D(const QmlPlatformStyle);
+    qDebug("font size large queried %d",d->engine->layoutParameter(QLatin1String("font-size-large")));
     return d->engine->layoutParameter(QLatin1String("font-size-large"));
 }
 
 int QmlPlatformStyle::fontSizeMedium() const
 {
     Q_D(const QmlPlatformStyle);
+        qDebug("font size medium queried %d",d->engine->layoutParameter(QLatin1String("font-size-medium")));
     return d->engine->layoutParameter(QLatin1String("font-size-medium"));
 }
 

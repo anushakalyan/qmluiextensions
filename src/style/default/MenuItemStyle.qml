@@ -45,10 +45,7 @@ Style {
     id: root
     property TextStyle textStyle: TextStyle{}
     // Font
-    property string fontFamily: __fontFamily
-    property int fontPixelSize: 26 // UI.FONT_DEFAULT_SIZE
-    property int fontCapitalization: Font.MixedCase
-    property int fontWeight: Font.Bold
+   // property int fontPixelSize: 26 // UI.FONT_DEFAULT_SIZE
     property int height: 80
 
     property real leftMargin: 24

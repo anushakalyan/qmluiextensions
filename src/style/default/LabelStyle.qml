@@ -44,8 +44,4 @@ import "UIConstants.js" as UI
 Style {
 
     property TextStyle textStyle: TextStyle {}
-
-    // Font
-    property string fontFamily: __fontFamily
-    property int fontPixelSize: UI.FONT_DEFAULT_SIZE
 }

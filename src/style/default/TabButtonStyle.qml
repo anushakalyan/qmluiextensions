@@ -48,16 +48,12 @@ ButtonStyle {
     */
     property string screenOrientation: (screen.currentOrientation == Screen.Portrait || screen.currentOrientation == Screen.PortraitInverted) ? "portrait" : "landscape"
 
-    fontCapitalization: Font.MixedCase 
-    fontPixelSize: 24
-    fontWeight: Font.Normal
-    checkedFontWeight: Font.Bold
-
     buttonHeight: screenOrientation == "portrait"? 72 : 56
 
     textStyle.textColor: theme.tabButtonTextColor
     textStyle.pressedTextColor: theme.tabButtonPressedTextColor
     textStyle.checkedTextColor: theme.tabButtonLatchedTextColor
+    textStyle.fontWeight: Font.Normal
 
     background: "image://theme/meegotouch-tab-" + screenOrientation + "-bottom" + __invertedString + "-background" + (position ? "-" + position : "") 
 

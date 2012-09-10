@@ -43,8 +43,8 @@ import "UIConstants.js" as UI
 
 MenuStyle {
      id: root
-     property string titleFontFamily: __fontFamily
-     property int titleFontPixelSize: UI.FONT_SMALL
+     property string titleFontFamily: platformStyle.fontFamilyRegular
+     property int titleFontPixelSize: platformStyle.fontSizeSmall
      property int titleFontCapitalization: Font.MixedCase
      property color titleTextColor: theme.dialogTitleBarTextColor
 

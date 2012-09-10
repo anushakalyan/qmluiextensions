@@ -42,12 +42,8 @@ import QtQuick 1.1
 import "UIConstants.js" as UI
 
 Style {
-    //Text styling
+    //Text and font styling
      property TextStyle textStyle: TextStyle{}
-    // Font
-    property string fontFamily: __fontFamily
-    property int fontPixelSize: UI.FONT_DEFAULT_SIZE
-
     // Background
     property url valueBackground: "image://theme/meegotouch-slider-handle-value"+__invertedString+"-background"
     property url labelArrowDown: "image://theme/meegotouch-slider-handle-label-arrow-down"+__invertedString

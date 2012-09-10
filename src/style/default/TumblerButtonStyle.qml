@@ -44,10 +44,6 @@ import "constants.js" as UI
 
 ButtonStyle {
     property TextStyle textStyle: TextStyle{}
-    // Text Color
-   // textColor: inverted ? UI.COLOR_BUTTON_INVERTED_FOREGROUND : UI.COLOR_BUTTON_FOREGROUND
-   // pressedTextColor: UI.COLOR_BUTTON_SECONDARY_FOREGROUND
-   // disabledTextColor: inverted ? UI.COLOR_BUTTON_INVERTED_DISABLED_FOREGROUND : UI.COLOR_BUTTON_DISABLED_FOREGROUND
 
     // Background
     background: "image://theme/meegotouch-button" + __invertedString + "-background"

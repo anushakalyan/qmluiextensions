@@ -45,11 +45,6 @@ Style {
     // Styling for the Label
     property TextStyle textStyle: TextStyle{}
 
-    // Font
-    property string fontFamily: __fontFamily
-    property int fontPixelSize: UI.FONT_DEFAULT_SIZE
-    property int fontCapitalization: Font.MixedCase
-    property int fontWeight: Font.Bold
     property int checkedFontWeight: Font.Bold
     property int horizontalAlignment: Text.AlignHCenter
 

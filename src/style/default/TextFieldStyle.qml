@@ -63,8 +63,8 @@ Item {
 
     Text {
         id: textProperties
-        font.family: (locale && locale.language == "fa") ? UI.FONT_FAMILY_LIGHT_FARSI : UI.FONT_FAMILY_LIGHT
-        font.pixelSize: UI.FONT_DEFAULT
+        font.family: platformStyle.fontFamilyRegular
+        font.pixelSize: platformStyle.fontSizeMedium
         visible: false
     }
 
