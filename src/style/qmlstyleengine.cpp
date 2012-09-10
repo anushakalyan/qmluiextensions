@@ -193,7 +193,7 @@ void QmlStyleEnginePrivate::loadParameters(const QString &filePath, ParameterTyp
         qreal inchSize = qSqrt(screen->platformHeight() * screen->platformHeight()
                                + screen->platformWidth() * screen->platformWidth()) / screen->dpi();
         qreal pthMm = MID_VALUE + RANGE * qAtan(ATAN_FACTOR * (inchSize - MID_POINT)) / M_PI;
-        unit = 0.5 * pthMm * screen->dpi() / 25.4;
+        unit = 0.35 * pthMm * screen->dpi() / 25.4;
     }
 
     QFile file(filePath);

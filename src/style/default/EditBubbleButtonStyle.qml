@@ -45,7 +45,7 @@ Style {
 
     // Text and font
     // platformStyle API
-    property QtObject tStyle: TextStyle{
+    property TextStyle tStyle: TextStyle{
         textColor: theme.dialogTitleTextColor
         fontWeight: Font.Normal
         property int textStyle: Text.Sunken
