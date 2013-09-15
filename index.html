@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>test by anushakalyan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">test</h1>
+        <p class="header">test</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/anushakalyan/qmluiextensions/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/anushakalyan/qmluiextensions/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/anushakalyan/qmluiextensions">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/anushakalyan">anushakalyan</a></p>
+
+
+      </header>
+      <section>
+        <p>This source tree contains the Qt Quick Components project.</p>
+
+<h1>
+<a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h1>
+
+<p>configure (for compiling specific component sets add '-meego' or '-symbian')
+make
+make install</p>
+
+<p>The project is divided into:</p>
+
+<ul>
+<li>The module Qt.labs.components: <em>for now</em> contains general purpose helpers for QML.</li>
+</ul><p>and also (for the time being) two QML modules for component sets implemented using those components</p>
+
+<ul>
+<li>com.meego: components from MeeGo Touch UI library,</li>
+<li>com.nokia.symbian: set of UI components for Symbian.</li>
+</ul><p>The lib will install in QTDIR/lib, while the modules will go to QTDIR/imports.</p>
+
+<h1>
+<a name="build-dependencies" class="anchor" href="#build-dependencies"><span class="octicon octicon-link"></span></a>Build dependencies</h1>
+
+<ul>
+<li>MeeGo components set currently requires Qt 4.7.0</li>
+<li>Symbian components set currently requires Qt 4.7.4</li>
+</ul><h1>
+<a name="optional-dependencies" class="anchor" href="#optional-dependencies"><span class="octicon octicon-link"></span></a>Optional dependencies</h1>
+
+<ul>
+<li>MeeGo Touch (for some features of the the com.meego module)
+-- On desktop, download and install: libmeegotouch &amp; meegotouch-theme from <a href="http://meego.gitorious.org/meegotouch">http://meego.gitorious.org/meegotouch</a>
+-- NOTE: meegotouch is already available if you are compiling inside scratchbox with a maemo6 target setup</li>
+</ul><h1>
+<a name="coding-style" class="anchor" href="#coding-style"><span class="octicon octicon-link"></span></a>Coding Style</h1>
+
+<p>Follow the respective Qt coding style for C++ and QML files and the
+JavaScript coding style for JS only files.</p>
+
+<p>Coding Styles</p>
+
+<ul>
+<li>Qt C++: <a href="http://qt.gitorious.org/qt/pages/QtCodingStyle">http://qt.gitorious.org/qt/pages/QtCodingStyle</a>
+</li>
+<li>QML: <a href="http://doc.qt.nokia.com/4.7/qml-coding-conventions.html">http://doc.qt.nokia.com/4.7/qml-coding-conventions.html</a>
+</li>
+<li>JS: <a href="https://developer.mozilla.org/En/Developer_Guide/Coding_Style">https://developer.mozilla.org/En/Developer_Guide/Coding_Style</a>
+</li>
+</ul><h1>
+<a name="running-on-desktop" class="anchor" href="#running-on-desktop"><span class="octicon octicon-link"></span></a>Running on Desktop</h1>
+
+<ul>
+<li>Pass -graphicssystem native</li>
+<li>On mac, running tests require prefixing the path to the libqtcomponentsplugin.dylib: 
+"DYLD_LIBRARY_PATH=/Developer/depot/qt/imports/Qt/labs/components/ make check"</li>
+</ul><h1>
+<a name="building-the-documentation" class="anchor" href="#building-the-documentation"><span class="octicon octicon-link"></span></a>Building the Documentation</h1>
+
+<p>To generate the Symbian components documentation:
+configure -symbian
+make docs</p>
+
+<p>This will generate HTML files in the doc/html directory. Also, a qch file will
+be generated in the doc/qch directory. This qch file can be loaded in
+Qt Assistant or Qt Creator.</p>
+
+<h1>
+<a name="build-instructions-for-meegotouch-quickstart" class="anchor" href="#build-instructions-for-meegotouch-quickstart"><span class="octicon octicon-link"></span></a>Build instructions for MeeGoTouch (quickstart)</h1>
+
+<p>(After trying to install things in a different prefix,
+ I gave up since I couldn't get meegotouch to find its theme.)</p>
+
+<p>You will need these projects:
+git://gitorious.org/meegotouch/meegotouch-theme.git
+git://gitorious.org/meegotouch/libmeegotouch.git
+<a href="mailto:git@gitorious.org">git@gitorious.org</a>:qt-components/qt-components.git</p>
+
+<p>1: meegotouch-theme: qmake PREFIX=/usr/local/ &amp;&amp; sudo make install</p>
+
+<p>2: libmeegotouch:
+   ./configure --prefix=/usr
+ Make sure that you configure with dbus. If it doesn't pick up qt's dbus:
+   export PKG_CONFIG_PATH=$QTDIR/lib/pkgconfig
+   make install</p>
+
+<p>3: qt-components: ./configure -meego &amp;&amp; make install
+     (installs into your current binary qt path)
+     or use dpkg-buildpackage to make a .deb package</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
